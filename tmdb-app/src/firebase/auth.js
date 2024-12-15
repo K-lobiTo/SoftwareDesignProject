@@ -1,4 +1,5 @@
-import { auth } from "./firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "./firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -21,8 +22,8 @@ export const doSignInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(auth, provider);
   const user = result.user;
+  addUser(user);
 
-  // add user to firestore
 };
 
 export const doSignOut = () => {
@@ -41,4 +42,19 @@ export const doSendEmailVerification = () => {
   return sendEmailVerification(auth.currentUser, {
     url: `${window.location.origin}/home`,
   });
+};
+
+// Saving users into firebase
+
+const addUser = async (user) =>   {
+  try {
+    const UsersRef = collection(db, 'User');
+    await addDoc(UsersRef,
+    {
+      id: user.uid,
+      email: user.email
+    })
+  } catch (error) {
+    console.error("Firebase adding document error: ", error);
+  }
 };
