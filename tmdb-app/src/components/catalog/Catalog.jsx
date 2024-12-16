@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { tmdb, searchMovies } from "../../tmdb/config";
 import SearchArea from "./SearchArea";
+import MovieList from "./MovieList";
 
 const Catalog = () => {
   const [query, setQuery] = useState("");
@@ -49,7 +50,7 @@ const Catalog = () => {
       </ul> */}
       
 
-      <div>
+      {/* <div>
         {movies.length > 0 ? (
           <ul>
             {movies.map((movie) => (
@@ -63,7 +64,8 @@ const Catalog = () => {
         ) : (
           <p>No movies found. Try searching for something else!</p>
         )}
-      </div>
+      </div> */}
+      <MovieList movies={movies}/>
 
 
     </div>
