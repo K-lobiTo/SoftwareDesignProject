@@ -13,6 +13,7 @@ import Catalog from './components/catalog/Catalog';
 
 import './App.css'
 import 'materialize-css/dist/css/materialize.min.css'
+import Watchlist from './components/catalog/watchlist/Watchlist';
 
 function App() {
 
@@ -36,6 +37,10 @@ function App() {
     {
       path: "/catalog",
       element: <Catalog />,
+    },
+    {
+      path: "/Watchlist",
+      element: <Watchlist />,
     },
   ];
 
