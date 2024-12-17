@@ -1,19 +1,7 @@
-import { doc, setDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
-// Saving users into firestore
-export const addUser = async (user) => {
-  try {
-    const UsersRef = collection(db, "User");
-    await addDoc(UsersRef, {
-      id: user.uid,
-      email: user.email,
-    });
-  } catch (error) {
-    console.error("Firebase adding document error: ", error);
-  }
-};
-export const addUser2 = async (userData) => {
+export const addUser = async (userData) => {
 
     // setDoc get the doc parameter as the reference and the data as a JSON file
   const userJSON = {
