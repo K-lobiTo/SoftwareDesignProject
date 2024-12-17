@@ -13,7 +13,7 @@ export const tmdb = axios.create({
 });
 // console.log("API Key:", API_KEY);
 
-// Response to search/movie by query
+// Response to search/movie by query (movie name)
 export const searchMovies = async (query, language = "en-US", page = 1) => {
   try {
     const response = await tmdb.get("/search/movie", {
@@ -27,6 +27,22 @@ export const searchMovies = async (query, language = "en-US", page = 1) => {
     return response.data.results;
   } catch (error) {
     console.error("Error fetching movies:", error);
+    throw error;
+  }
+};
+
+
+// Fetch a specific movie by ID
+export const getMovieById = async (movieId) => {
+  try {
+    const response = await axios.get(`${URL}/movie/${movieId}`, {
+      params: {
+        api_key: API_KEY,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching movie:", error);
     throw error;
   }
 };
