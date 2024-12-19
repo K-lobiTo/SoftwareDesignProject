@@ -12,6 +12,7 @@ export const addUser = async (userData) => {
   const userJSON = {
     uid: userData.uid,
     email: userData.email,
+    movies: {}
   };
   try {
     // user ID as doc ID
