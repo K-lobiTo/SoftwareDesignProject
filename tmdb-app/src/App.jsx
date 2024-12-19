@@ -39,7 +39,7 @@ function App() {
       element: <Catalog />,
     },
     {
-      path: "/Watchlist",
+      path: "/watchlist",
       element: <Watchlist />,
     },
   ];
