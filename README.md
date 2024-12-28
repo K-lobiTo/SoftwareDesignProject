@@ -10,11 +10,16 @@ npm install
 
 ```bash
 npm run dev
-ó
-npm start 
 ```
 
 Este comando permitira redirigir el proyecto al localhost: http://localhost:5173/
+
+## Acceso a los géneros a través de Postman 
+
+```bash
+https://api.themoviedb.org/3/genre/movie/list
+```
+
  
 
 
