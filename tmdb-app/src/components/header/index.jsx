@@ -83,7 +83,7 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            WhatchList
+            WatchList
           </Typography>
 
           <Typography
@@ -111,9 +111,9 @@ const Header = () => {
                   <Typography
                     key={page}
                     onClick={() => toPage(page)}
-                    sx={{ my: 2, mx: 1, color: "purple", display: "block", cursor: "pointer" }}
+                    sx={{ my: 2, color: "purple", display: "block", cursor: "pointer", fontFamily: "monospace", textTransform: "uppercase", mx: 1 }}
                   >
-                    {page}
+                    {page.split(' ').join(' ')}
                   </Typography>
                 ))}
               </Box>
@@ -146,8 +146,8 @@ const Header = () => {
                 >
                   {loggedPages.map((page) => (
                     <MenuItem key={page} onClick={() => toPage(page)}>
-                      <Typography sx={{ textAlign: "center", color: "purple" }}>
-                        {page}
+                      <Typography sx={{ textAlign: "center", color: "purple", fontFamily: "monospace", textTransform: "uppercase" }}>
+                        {page.split(' ').join(' ')}
                       </Typography>
                     </MenuItem>
                   ))}
@@ -180,7 +180,7 @@ const Header = () => {
                 >
                   {settings.map((setting) => (
                     <MenuItem key={setting} onClick={toLogin}>
-                      <Typography sx={{ textAlign: "center", color: "purple" }}>
+                      <Typography sx={{ textAlign: "center", color: "purple", fontFamily: "monospace" }}>
                         {setting}
                       </Typography>
                     </MenuItem>
@@ -192,13 +192,13 @@ const Header = () => {
             <>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {unLoggedPages.map((page) => (
-                  <Typography
+                  <Button
                     key={page}
                     onClick={() => toPage(page)}
-                    sx={{ my: 2, mx: 1, color: "purple", display: "block", cursor: "pointer" }}
+                    sx={{ my: 2, color: "purple", display: "block", fontFamily: "monospace" }}
                   >
                     {page}
-                  </Typography>
+                  </Button>
                 ))}
               </Box>
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -230,7 +230,7 @@ const Header = () => {
                 >
                   {unLoggedPages.map((page) => (
                     <MenuItem key={page} onClick={() => toPage(page)}>
-                      <Typography sx={{ textAlign: "center", color: "purple" }}>
+                      <Typography sx={{ textAlign: "center", color: "purple", fontFamily: "monospace" }}>
                         {page}
                       </Typography>
                     </MenuItem>
