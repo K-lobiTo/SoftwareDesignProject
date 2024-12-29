@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
 import { doSignOut } from "../../firebase/auth";
 
@@ -15,10 +15,10 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import MovieFilterIcon from '@mui/icons-material/MovieFilter';
 
 const unLoggedPages = ["login", "register"];
-const loggedPages = ["catalog", "whatchlist"];
+const loggedPages = ["catalog", "watchlist"];
 const settings = ["Sign Out"];
 
 const Header = () => {
@@ -59,23 +59,15 @@ const Header = () => {
     } else if (page === "register") {
       toRegister();
     } else {
-      // Ensure `page` is a string path if you intend to navigate to it
-      console.log("Navigating to:", page);
       navigate(`/${page}`);
     }
   };
 
-  // const toPage = async (page) => {
-  //   if (page === "login" || page === "register") {
-  //     await doSignOut();
-  //   }
-  //   navigate({ page });
-  // };
-
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: "white" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <MovieFilterIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1, color: "purple" }} />
           <Typography
             variant="h6"
             noWrap
@@ -87,11 +79,11 @@ const Header = () => {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "purple",
               textDecoration: "none",
             }}
           >
-            TMDB-APP
+            WhatchList
           </Typography>
 
           <Typography
@@ -106,27 +98,25 @@ const Header = () => {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "purple",
               textDecoration: "none",
             }}
           >
             LOGO
           </Typography>
-          {userLoggedIn ? ( // IF USER IS LOGGED IN:
+          {userLoggedIn ? (
             <>
-              {/* EXPANDED NAVBAR */}
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {loggedPages.map((page) => (
-                  <Button
+                  <Typography
                     key={page}
                     onClick={() => toPage(page)}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    sx={{ my: 2, mx: 1, color: "purple", display: "block", cursor: "pointer" }}
                   >
                     {page}
-                  </Button>
+                  </Typography>
                 ))}
               </Box>
-              {/* COMPACTED NAVBAR */}
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
@@ -136,7 +126,7 @@ const Header = () => {
                   onClick={handleOpenNavMenu}
                   color="inherit"
                 >
-                  <MenuIcon />
+                  <MenuIcon sx={{ color: "purple" }} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -156,7 +146,7 @@ const Header = () => {
                 >
                   {loggedPages.map((page) => (
                     <MenuItem key={page} onClick={() => toPage(page)}>
-                      <Typography sx={{ textAlign: "center" }}>
+                      <Typography sx={{ textAlign: "center", color: "purple" }}>
                         {page}
                       </Typography>
                     </MenuItem>
@@ -190,7 +180,7 @@ const Header = () => {
                 >
                   {settings.map((setting) => (
                     <MenuItem key={setting} onClick={toLogin}>
-                      <Typography sx={{ textAlign: "center" }}>
+                      <Typography sx={{ textAlign: "center", color: "purple" }}>
                         {setting}
                       </Typography>
                     </MenuItem>
@@ -199,21 +189,18 @@ const Header = () => {
               </Box>
             </>
           ) : (
-            // IF USER IS NOT LOGGED IN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             <>
-              {/* EXPANDED NAVBAR */}
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {unLoggedPages.map((page) => (
-                  <Button
+                  <Typography
                     key={page}
                     onClick={() => toPage(page)}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    sx={{ my: 2, mx: 1, color: "purple", display: "block", cursor: "pointer" }}
                   >
                     {page}
-                  </Button>
+                  </Typography>
                 ))}
               </Box>
-              {/* COMPACTED NAVBAR */}
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
@@ -223,7 +210,7 @@ const Header = () => {
                   onClick={handleOpenNavMenu}
                   color="inherit"
                 >
-                  <MenuIcon />
+                  <MenuIcon sx={{ color: "purple" }} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -242,9 +229,8 @@ const Header = () => {
                   sx={{ display: { xs: "block", md: "none" } }}
                 >
                   {unLoggedPages.map((page) => (
-                    // <MenuItem key={page} onClick={page=='Register'? toRegister : toLogin}>
                     <MenuItem key={page} onClick={() => toPage(page)}>
-                      <Typography sx={{ textAlign: "center" }}>
+                      <Typography sx={{ textAlign: "center", color: "purple" }}>
                         {page}
                       </Typography>
                     </MenuItem>
@@ -260,6 +246,3 @@ const Header = () => {
 };
 
 export default Header;
-
-// component={Link}
-// to={`/${page}`}
