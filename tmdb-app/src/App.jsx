@@ -1,4 +1,6 @@
 
+import React from "react";
+
 import { AuthProvider } from "./contexts/authContext/index";
 import { useRoutes } from "react-router-dom";
 import Home from './components/for_testing';
@@ -6,6 +8,8 @@ import Header from './components/header';
 import Login from './components/auth/login';
 import Register from './components/auth/register';
 import Catalog from './components/catalog/Catalog';
+
+
 
 
 import './App.css'
@@ -45,10 +49,10 @@ function App() {
 
   return (
     <AuthProvider>
-      <Header />
-      <div className="w-full h-screen flex flex-col">{routesElement}</div>
+        <Header />
+        <div className="w-full h-screen flex flex-col">{routesElement}</div>
     </AuthProvider>
-  )
-}
+  );
 
+}
 export default App

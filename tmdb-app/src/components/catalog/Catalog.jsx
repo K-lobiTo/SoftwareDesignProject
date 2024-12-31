@@ -1,36 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { searchMovies } from "../../tmdb/config";
+import { searchMovies, getGenres, getMoviesByGenre, getAllMovies } from "../../tmdb/config";
 import SearchArea from "./SearchArea";
 import MovieList from "./MovieList";
+import GenreList from "./GenreList"; 
+
+import Box from '@mui/material/Box';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Catalog = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [error, setError] = useState(null);
+  const [genres, setGenres] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState("");
 
-  //   useEffect(() => {
-  //     const fetchMovies = async () => {
-  //       try {
-  //         const response = await tmdb.get("/movie/popular");
-  //         setMovies(response.data.results);
-  //       } catch (error) {
-  //         console.error("Error fetching movies:", error);
-  //       }
-  //     };
-  //     fetchMovies();
-  //   }, []);
+  useEffect(() => {
+    const fetchGenresAndMovies = async () => {
+      try {
+        const genres = await getGenres();
+        setGenres(genres);
+        const allMovies = await getAllMovies(); // Fetch all movies if no genre is selected
+        setMovies(allMovies);
+      } catch (error) {
+        console.error("Error fetching genres and movies:", error);
+      }
+    };
+    fetchGenresAndMovies();
+  }, []);
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    await performSearch(query);
+  };
 
-    if (!query.trim()) return;
+  const performSearch = async (searchQuery) => {
     try {
-      const results = await searchMovies(query);
+      const results = await searchMovies(searchQuery, selectedGenre);
       setMovies(results);
       console.log(results);
-      setError(null);
     } catch (err) {
-      setError("Failed to fetch movies. Please try again later.");
+      console.error("Failed to fetch movies. Please try again later.");
     }
   };
 
@@ -38,11 +46,43 @@ const Catalog = () => {
     setQuery(e.target.value);
   };
 
+  const handleFilterChange = async (genreId) => {
+    setSelectedGenre(genreId);
+    if (genreId) {
+      try {
+        const results = await getMoviesByGenre(genreId);
+        setMovies(results);
+        console.log(results);
+      } catch (err) {
+        console.error("Failed to fetch movies by genre. Please try again later.");
+      }
+    } else {
+      try {
+        const allMovies = await getAllMovies(); // Fetch all movies if no genre is selected
+        setMovies(allMovies);
+        console.log(allMovies);
+      } catch (err) {
+        console.error("Failed to fetch all movies. Please try again later.");
+      }
+    }
+  };
+
   return (
-    <div>
-      <SearchArea handleChange={handleChange} handleSubmit={handleSearch} />
+    <Box sx={{ margin: '20px' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+        <SearchArea handleChange={handleChange} handleSubmit={handleSearch} />
+        <GenreList
+          genres={genres}
+          selectedGenre={selectedGenre}
+          handleFilterChange={handleFilterChange}
+        />
+        <SearchIcon
+          onClick={handleSearch}
+          sx={{ cursor: 'pointer' }}
+        />
+      </Box>
       <MovieList movies={movies} />
-    </div>
+    </Box>
   );
 };
 
