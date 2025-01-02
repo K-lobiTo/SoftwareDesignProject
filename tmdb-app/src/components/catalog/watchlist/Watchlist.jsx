@@ -142,7 +142,7 @@ const Watchlist = () => {
                   <TableCell>
                     <IconButton
                       onClick={() => handleDelete(String(movie.id))}
-                      sx={{ color: "#FF5733" }}
+                      sx={{ color: "#fff9f7" }}
                     >
                       <DeleteIcon />
                     </IconButton>
