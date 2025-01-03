@@ -9,14 +9,11 @@ function FilterProvider(props) {
   const selectGender = (genderId) => {
     setMovieName('');
     setGender(genderId);
-    console.log("Gender: " + genderId);
   };
 
   const selectMovieName = (movieName) => {
     setGender('');
     setMovieName(movieName);
-    console.log("Movie Name: " + movieName);
-    console.log("Gender: " + genderId);
   };
 
   const value = { gender , selectGender, movieName, selectMovieName };
