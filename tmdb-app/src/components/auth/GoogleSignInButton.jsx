@@ -2,8 +2,10 @@ import React from "react";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import { useLanguage } from "../../contexts/languageProvider";
 
 const GoogleSignInButton = ({ isSigningIn, onGoogleSignIn }) => {
+  const { language } = useLanguage();
   return (
     <Button
       variant="outlined"
@@ -63,10 +65,10 @@ const GoogleSignInButton = ({ isSigningIn, onGoogleSignIn }) => {
       {isSigningIn ? (
         <Box display="flex" alignItems="center" gap={1}>
           <CircularProgress size={16} />
-          Signing In...
+          {language.login.signingInMsg}
         </Box>
       ) : (
-        "Continue with Google"
+        language.login.googleAuthMsg
       )}
     </Button>
   );
