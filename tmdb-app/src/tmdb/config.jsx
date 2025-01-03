@@ -10,29 +10,43 @@ export const tmdb = axios.create({
   },
 });
 
-export const searchMovies = async (query, genreId = "", language = "en-US", page = 1) => {
+export const searchMovies = async (query, language, page, genderId) => {
   try {
     const response = await tmdb.get("/search/movie", {
       params: {
         api_key: API_KEY,
-        query,
+        query: query,
         language,
         page,
-        with_genres: genreId,
       },
     });
-    return response.data.results;
+
+    if(query === "" && genderId === "") {
+      const all_movies = await getAllMovies(language, page);
+      return all_movies;
+    }
+
+    const movies = response.data.results.map((movie) => ({
+      id: movie.id,
+      title: movie.title,
+      release: movie.release_date,
+      punctuation: movie.vote_average,
+      posterPath: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+    }));
+
+    return [movies, response.data.total_pages];
   } catch (error) {
     console.error("Error fetching movies:", error);
     throw error;
   }
 };
 
-export const getGenres = async () => {
+export const getGenres = async (language) => {
   try {
     const response = await tmdb.get("/genre/movie/list", {
       params: {
         api_key: API_KEY,
+        language: language,
       },
     });
     return response.data.genres;
@@ -42,21 +56,6 @@ export const getGenres = async () => {
   }
 };
 
-// export const getAllMoviesByGenres = async (language = "en-US", page = 1) => {
-//   try {
-//     const genres = await getGenres();
-//     const moviesByGenre = await Promise.all(
-//       genres.map(async (genre) => {
-//         const movies = await getMoviesByGenre(genre.id, language, page);
-//         return { genre: genre.name, movies };
-//       })
-//     );
-//     return moviesByGenre;
-//   } catch (error) {
-//     console.error("Error fetching movies by all genres:", error);
-//     throw error;
-//   }
-// };
 export const getMovieById = async (movieId) => {
   try {
     const response = await axios.get(`${URL}/movie/${movieId}`, {
@@ -70,7 +69,9 @@ export const getMovieById = async (movieId) => {
     throw error;
   }
 };
-export const getMoviesByGenre = async (genreId, language = "en-US", page = 1) => {
+
+
+export const getMoviesByGenre = async (genreId, language, page) => {
   try {
     const response = await tmdb.get("/discover/movie", {
       params: {
@@ -80,14 +81,31 @@ export const getMoviesByGenre = async (genreId, language = "en-US", page = 1) =>
         page,
       },
     });
-    return response.data.results;
+
+    const movies = response.data.results.map((movie) => ({
+      id: movie.id,
+      title: movie.title,
+      release: movie.release_date,
+      punctuation: movie.vote_average,
+      posterPath: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+    }));
+
+    var total_pages = response.data.total_pages;
+
+    if (total_pages >= 500) {
+      total_pages = 500;
+    }
+    
+    return [movies, total_pages];
   } catch (error) {
     console.error("Error fetching movies by genre:", error);
     throw error;
   }
 };
 
-export const getAllMovies = async (language = "en-US", page = 1) => {
+// function to get movies
+export const getAllMovies = async (language, page) => {
+
   try {
     const response = await tmdb.get("/discover/movie", {
       params: {
@@ -96,9 +114,92 @@ export const getAllMovies = async (language = "en-US", page = 1) => {
         page,
       },
     });
-    return response.data.results;
+
+    const movies = response.data.results.map((movie) => ({
+      id: movie.id,
+      title: movie.title,
+      release: movie.release_date,
+      punctuation: movie.vote_average,
+      posterPath: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+    }));
+
+    var total_pages = response.data.total_pages;
+
+    if (total_pages >= 500) {
+      total_pages = 500;
+    }
+
+    return [movies, total_pages];
   } catch (error) {
     console.error("Error fetching all movies:", error);
+    throw error;
+  }
+};
+
+  // TAMARA
+  // function to get all the actors members of the movie ID
+export const fetchMovieCredits = async (movieId, language) => {
+  try {
+    const response = await tmdb.get(`/movie/${movieId}/credits`, {
+      params: {
+        language,
+      },
+    });
+
+    const cast = response.data.cast
+      .filter((member) => member.known_for_department === "Acting")
+      .map((member) => ({
+        id: member.id,
+        name: member.name,
+        character: member.character,
+        profilePath: member.profile_path
+          ? `https://image.tmdb.org/t/p/w500${member.profile_path}`
+          : 'https://i.imgflip.com/9au02y.jpg?a482136',
+      }));
+
+    return cast; // Devuelve el elenco
+  } catch (error) {
+    console.error("Failed to fetch movie credits:", error);
+    return [];
+  }
+};
+
+export async function fetchMovieVideos(movieId, language) {
+  const url = `https://api.themoviedb.org/3/movie/${movieId}/videos`;
+
+  try {
+    const response = await tmdb.get(url, {
+      params: {
+        language,
+      },
+    });
+
+    const youtubeVideos = response.data.results.filter(
+      (video) => video.site === "YouTube"
+    );
+    return youtubeVideos;
+
+  } catch (error) {
+    console.error('Error fetching movie videos:', error);
+    return [];
+  }
+}
+
+// function to get the movie data
+export const fetchMovieData = async (movieId, language) => {
+  try {
+    const response = await tmdb.get(`/movie/${movieId}`
+      , {
+        params: {
+          language,
+        },
+      }
+    );
+
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error("Error al obtener los datos de la película:", error.message);
     throw error;
   }
 };

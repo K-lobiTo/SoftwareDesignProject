@@ -1,0 +1,33 @@
+.card-cast-main{
+  display: flex;
+  flex-direction: column;
+  padding-right: 25px;
+  padding-left: 40px;
+  padding-top: 40px;
+}
+
+.cards {
+  display: flex;
+  overflow-x: auto;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  padding-right: 30px;
+}
+  
+.cards::-webkit-scrollbar {
+  height: 8px;
+}
+  
+.cards::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border-radius: 4px;
+}
+ 
+.title-cast{
+  font-size: 50px;
+  text-align: left;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1;
+  margin-bottom: 10px;
+}

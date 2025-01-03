@@ -8,13 +8,17 @@ import Header from './components/header';
 import Login from './components/auth/login';
 import Register from './components/auth/register';
 import Catalog from './components/catalog/Catalog';
+import Details from './components/details/Details';
+import Watchlist from './components/watchlist/Watchlist';
 
-
+// Context
+import ThemeProvider from './contexts/themeProvider';
+import FilterProvider from './contexts/filters/index';
+import LanguageProvider from './contexts/languageProvider/index';
 
 
 import './App.css'
 import 'materialize-css/dist/css/materialize.min.css'
-import Watchlist from './components/catalog/watchlist/Watchlist';
 
 function App() {
 
@@ -40,6 +44,10 @@ function App() {
       element: <Catalog />,
     },
     {
+      path: "/details/:movieId",
+      element: <Details />,
+    },
+    {
       path: "/watchlist",
       element: <Watchlist />,
     },
@@ -48,10 +56,16 @@ function App() {
   let routesElement = useRoutes(routesArray);
 
   return (
-    <AuthProvider>
-        <Header />
-        <div className="w-full h-screen flex flex-col">{routesElement}</div>
-    </AuthProvider>
+    <LanguageProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <FilterProvider>
+            <Header />
+            <div className="w-full h-screen flex flex-col">{routesElement}</div>
+          </FilterProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </LanguageProvider>
   );
 
 }

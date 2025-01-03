@@ -1,0 +1,32 @@
+.card-cast{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+    width: 190px;
+}
+
+.image-cast{
+    height: 250px;
+    width: 190px;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
+
+.real-name{
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    text-align: left;
+}
+
+.cast-name{
+    font-size: 15px;
+    color: #572974;
+    font-weight: 400;
+    margin: 0px;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    text-align: left
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'; 
-import { useAuth } from "../../../contexts/authContext"; 
-import { getMoviesByUser, removeMovieFromUser } from "../../../firebase/firestore"; 
-import { getMovieById } from "../../../tmdb/config"; 
+import { useAuth } from "../../contexts/authContext/index"; 
+import { getMoviesByUser, removeMovieFromUser } from "../../firebase/firestore"; 
+import { getMovieById } from "../../tmdb/config"; 
 import {
   Box,
   TextField,

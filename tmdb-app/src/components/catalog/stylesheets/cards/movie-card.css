@@ -1,0 +1,49 @@
+.card-movie{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 2%;
+    width: 320px;
+    padding-bottom: 10px;
+    overflow: hidden;
+}
+
+.image-movie{
+    margin: 10px;
+    margin-bottom: 0px;
+    height: 400px;
+    width: 300px;
+    border-radius: 2%;
+}
+
+.card-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.add-to-list{
+    size: 20px;
+    font-size: 20px;
+}
+
+.movie-name{
+    font-size: 24px;
+    font-weight: 700;
+    margin: 10px;
+    text-align: left;
+}
+
+.punctuation-text, .release-text{
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0px;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    text-align: left
+}
+
+.add-to-list {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding:0px;
+}

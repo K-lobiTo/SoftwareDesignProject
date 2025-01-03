@@ -1,0 +1,50 @@
+.catalog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.catalog-grid{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: grid;
+    grid-gap: auto;
+    justify-content: center;
+    align-items: center;
+    max-width: 90%;
+    min-width: 10px;
+    flex-wrap: wrap;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 50px;
+}
+
+.title-filter{
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-left: 5vw;
+    padding-top: 40px;
+}
+
+.title-catalog{
+    font-size: 64px;
+    color: #572974;
+    font-weight: 700;
+    margin: 10px;
+    text-align: left;
+}
+  

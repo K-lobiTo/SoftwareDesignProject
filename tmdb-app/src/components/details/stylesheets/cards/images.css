@@ -1,0 +1,48 @@
+.container {
+    background-color: #572974;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 40px;
+    width: 100%;
+}
+
+
+.images {
+    width: 100%;
+    font-size: 50px;
+    text-align: left;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+}
+  
+  .image-gallery {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 0 0px;
+  }
+  
+.image-item {
+    border-radius: 1px;
+    transition: transform 0.3s ease;
+    flex: 0 1 auto; /* Permite que los items se ajusten */
+    max-width: 500px; /* Máximo ancho de imagen */
+    width: calc(33.333% - 10px); /* Hace que se ajusten 3 imágenes por fila con el gap */
+}
+  
+  .image-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
