@@ -50,6 +50,15 @@ const languageNames={
       budget: 'Budget:',
       revenue: 'Revenue:',
       undefined: 'Unknown',
+    },
+
+    login:{
+      email: 'Email',
+      password: 'Password',
+      signIn: 'Sign In',
+      registerMsg: 'Are you new here? Sign Up',
+      googleAuthMsg: 'Continue with Google',
+      signingInMsg: 'Signing In...',
     }
 
   },
@@ -102,6 +111,15 @@ const languageNames={
       revenue: 'Ingresos:',
       undefined: 'Desconocido',
     },
+
+    login:{
+      email: 'Correo',
+      password: 'Contraseña',
+      signIn: 'Inicia Sesión',
+      registerMsg: 'Eres nuevo aquí? Regístrate',
+      googleAuthMsg: 'Continuar con google',
+      signingInMsg: 'Iniciando sesión...',
+    }
   },
 };
 
