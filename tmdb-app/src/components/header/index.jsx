@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
 import { doSignOut } from "../../firebase/auth";
 
+import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import FormatItalicIcon from '@mui/icons-material/FormatItalic';
+
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import ToggleButton from '@mui/material/ToggleButton';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -16,6 +21,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import MovieFilterIcon from '@mui/icons-material/MovieFilter';
+import { useLanguage } from "../../contexts/languageProvider";
+import { useTheme } from "../../contexts/themeProvider";
 
 const unLoggedPages = ["login", "register"];
 const loggedPages = ["catalog", "watchlist"];
@@ -26,6 +33,9 @@ const Header = () => {
   const { userLoggedIn, currentUser } = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const { language, toggleLanguage, languageName } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -83,7 +93,7 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            WatchList
+            {language.appName}
           </Typography>
 
           <Typography
@@ -102,8 +112,19 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            {language.appName}
           </Typography>
+          {/* TEMPORAL */}
+          <ToggleButtonGroup >
+            <ToggleButton value="theme" onClick={toggleTheme}>
+              <FormatBoldIcon></FormatBoldIcon>
+
+            </ToggleButton>
+            <ToggleButton value="language" onClick={toggleLanguage}>
+              <FormatItalicIcon>{languageName}</FormatItalicIcon>
+            </ToggleButton>
+          </ToggleButtonGroup>
+          {/* TEMPORAL */}
           {userLoggedIn ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
