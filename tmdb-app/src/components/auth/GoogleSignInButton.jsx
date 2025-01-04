@@ -65,10 +65,10 @@ const GoogleSignInButton = ({ isSigningIn, onGoogleSignIn }) => {
       {isSigningIn ? (
         <Box display="flex" alignItems="center" gap={1}>
           <CircularProgress size={16} />
-          {language.login.signingInMsg}
+          {language.auth.signingInMsg}
         </Box>
       ) : (
-        language.login.googleAuthMsg
+        language.auth.googleAuthMsg
       )}
     </Button>
   );
