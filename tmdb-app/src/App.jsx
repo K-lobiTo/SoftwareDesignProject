@@ -1,27 +1,25 @@
-
 import React from "react";
 
 import { AuthProvider } from "./contexts/authContext/index";
 import { useRoutes } from "react-router-dom";
-import Home from './components/for_testing';
-import Header from './components/header';
-import Login from './components/auth/login';
-import Register from './components/auth/register';
-import Catalog from './components/catalog/Catalog';
-import Details from './components/details/Details';
-import Watchlist from './components/watchlist/Watchlist';
+import Home from "./components/for_testing";
+import Header from "./components/header";
+import Login from "./components/auth/login";
+import Register from "./components/auth/register";
+import Catalog from "./components/catalog/Catalog";
+import Details from "./components/details/Details";
+import Watchlist from "./components/watchlist/Watchlist";
 
 // Context
-import ThemeProvider from './contexts/themeProvider';
-import FilterProvider from './contexts/filters/index';
-import LanguageProvider from './contexts/languageProvider/index';
+import ThemeProvider from "./contexts/themeProvider";
+import FilterProvider from "./contexts/filters/index";
+import LanguageProvider from "./contexts/languageProvider/index";
 
-
-import './App.css'
-import 'materialize-css/dist/css/materialize.min.css'
+import "./App.css";
+import "materialize-css/dist/css/materialize.min.css";
+import { Container } from "@mui/material";
 
 function App() {
-
   const routesArray = [
     {
       path: "*",
@@ -61,12 +59,23 @@ function App() {
         <AuthProvider>
           <FilterProvider>
             <Header />
-            <div className="w-full h-screen flex flex-col">{routesElement}</div>
+            <Container
+              maxWidth={false}
+              disableGutters
+              sx={{
+                width: "100vw",
+                height: "100vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {routesElement}
+            </Container>
           </FilterProvider>
         </AuthProvider>
       </ThemeProvider>
     </LanguageProvider>
   );
-
 }
-export default App
+export default App;
