@@ -8,6 +8,7 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -21,11 +22,18 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import MovieFilterIcon from '@mui/icons-material/MovieFilter';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+
+
 import { useLanguage } from "../../contexts/languageProvider";
-import { useTheme } from "../../contexts/themeProvider";
+import SettingsDialog from '../../contexts/languageProvider/SettingsDialog';
+import { useState } from 'react';
+
+import { useTheme } from '../../contexts/themeProvider/index';
+
 
 const unLoggedPages = ["login", "register"];
-const loggedPages = ["catalog", "watchlist"];
+const loggedPages = ["catalog", "watchList"];
 const settings = ["Sign Out"];
 
 const Header = () => {
@@ -36,6 +44,17 @@ const Header = () => {
 
   const { language, toggleLanguage, languageName } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const [currentLanguage, setCurrentLanguage] = useState('en'); 
+  const [openPopup, setOpenPopup] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -113,18 +132,7 @@ const Header = () => {
             }}
           >
             {language.appName}
-          </Typography>
-          {/* TEMPORAL */}
-          <ToggleButtonGroup >
-            <ToggleButton value="theme" onClick={toggleTheme}>
-              <FormatBoldIcon></FormatBoldIcon>
-
-            </ToggleButton>
-            <ToggleButton value="language" onClick={toggleLanguage}>
-              <FormatItalicIcon>{languageName}</FormatItalicIcon>
-            </ToggleButton>
-          </ToggleButtonGroup>
-          {/* TEMPORAL */}
+            </Typography>
           {userLoggedIn ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -134,7 +142,7 @@ const Header = () => {
                     onClick={() => toPage(page)}
                     sx={{ my: 2, color: "purple", display: "block", cursor: "pointer", fontFamily: "monospace", textTransform: "uppercase", mx: 1 }}
                   >
-                    {page.split(' ').join(' ')}
+                    {language.header[page]}
                   </Typography>
                 ))}
               </Box>
@@ -168,21 +176,47 @@ const Header = () => {
                   {loggedPages.map((page) => (
                     <MenuItem key={page} onClick={() => toPage(page)}>
                       <Typography sx={{ textAlign: "center", color: "purple", fontFamily: "monospace", textTransform: "uppercase" }}>
-                        {page.split(' ').join(' ')}
+                        {language.header[page]}
                       </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
               </Box>
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt={currentUser.email}
-                      src={currentUser.photoURL}
-                    />
-                  </IconButton>
-                </Tooltip>
+              <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
+              <Tooltip title={language.header.config}>
+              <IconButton 
+                sx={{
+                  p: 0,
+                  mx: 1,
+                  backgroundColor: 'transparent',
+                  '&:hover': { backgroundColor: 'transparent' },
+                  '&:active': { backgroundColor: 'transparent' },
+                  '&:focus': { backgroundColor: 'transparent' },
+                }}
+                onClick={handleClickOpen} 
+              >
+                <SettingsSuggestIcon sx={{ fontSize: 45, color: '#A9A9A9' }} />
+              </IconButton>
+            </Tooltip>
+
+            <SettingsDialog
+              open={open} 
+              handleClose={handleClose} 
+            />
+      <Tooltip title={language.header.signOut}>
+        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mx: 1 }}>
+          <Avatar
+            alt={currentUser.email}
+            src={currentUser.photoURL}
+          />
+        </IconButton>
+      </Tooltip>
+      <SettingsDialog
+        open={openPopup}
+        handleClose={handleClose}
+        currentLanguage={currentLanguage}
+        setLanguage={setCurrentLanguage}
+      />
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"
