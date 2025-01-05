@@ -1,209 +1,217 @@
-import React, {createContext, useContext, useState} from "react";
+import React, { createContext, useContext, useState } from "react";
 
 const themeStyles = {
   light: {
-    catalog:{
+    catalog: {
       // Cards area
-      background: '#D5C6DB',
-      titleColor: '#572974',
-      cardBackground: '#fff',
-      movieNameColor: '#1C003A',
-      iconColor: '#1C003A',
-      detailsColor: '#706A74', 
-      cardBorder: '1px solid #e0e0e0',
+      background: "#D5C6DB",
+      titleColor: "#572974",
+      cardBackground: "#fff",
+      movieNameColor: "#1C003A",
+      iconColor: "#1C003A",
+      detailsColor: "#706A74",
+      cardBorder: "1px solid #e0e0e0",
 
       // Card On Hover
-      onHoverBackground: '#825C97',
-      onHoverBorderColor: '1px solid #b9b0c2',
-      detailsColorOnHover: '#fff',
-      movieNameColorOnHover: '#D5C6DB',
+      onHoverBackground: "#825C97",
+      onHoverBorderColor: "1px solid #b9b0c2",
+      detailsColorOnHover: "#fff",
+      movieNameColorOnHover: "#D5C6DB",
 
       // SearchArea
-      searchAreaBackground: '#fff',
-      searchAreaLetterColor: '#706A74',
-      borderSearchColor: 'transparent',
-      searchButtonColor: '#543F6B',
-      searchTitleColor: '#543F6B',
+      searchAreaBackground: "#fff",
+      searchAreaLetterColor: "#706A74",
+      borderSearchColor: "transparent",
+      searchButtonColor: "#543F6B",
+      searchTitleColor: "#543F6B",
 
       // GenreList
-      genreListBackground: '#fff',
-      genreListLetterColor: '#706A74',
-      borderFilterColor: '#fff',
-      genreListButtonColor: '#543F6B',
-      genreListTitleColor: '#543F6B',
-      boxBorderColor: '#D5C6DB',
+      genreListBackground: "#fff",
+      genreListLetterColor: "#706A74",
+      borderFilterColor: "#fff",
+      genreListButtonColor: "#543F6B",
+      genreListTitleColor: "#543F6B",
+      boxBorderColor: "#D5C6DB",
 
       // Pagination
-      paginationBackground: 'transparent',
-      paginationNumberColor: '#572974',
-      paginationBackgroundSelect: '#572974',
-      paginationNumberColorSelect: '#fff',
+      paginationBackground: "transparent",
+      paginationNumberColor: "#572974",
+      paginationBackgroundSelect: "#572974",
+      paginationNumberColorSelect: "#fff",
     },
 
-    details:{
-
-      button:{
-        background: '#D5C6DB',
-        color: '#1C003A',
+    details: {
+      button: {
+        background: "#D5C6DB",
+        color: "#1C003A",
       },
 
-      cardTitle:{
-        background: '#AB90B9',
-        cardTitleColor: '#572974',
-        cardDateColor: '#1C003A',
-        cardGenderColor: '#fff',
-        titlePunctuationColor: '#fff',
-        percentajeColor: '#1C003A',
-        circularProgressColor: '#572974',
-        iconColor: '#1C003A',
-        sipnosisColor: '#fff',
-        descriptionColor: '#1C003A',
+      cardTitle: {
+        background: "#AB90B9",
+        cardTitleColor: "#572974",
+        cardDateColor: "#1C003A",
+        cardGenderColor: "#fff",
+        titlePunctuationColor: "#fff",
+        percentajeColor: "#1C003A",
+        circularProgressColor: "#572974",
+        iconColor: "#1C003A",
+        sipnosisColor: "#fff",
+        descriptionColor: "#1C003A",
       },
 
-      cardInfo:{
-        background: '#D5C6DB',
-        colorTitle: '#825C97',
-        colorText: '#572974',
+      cardInfo: {
+        background: "#D5C6DB",
+        colorTitle: "#825C97",
+        colorText: "#572974",
       },
 
-      cast:{
-        background: '#572974',
-        title: '#fff',
+      cast: {
+        background: "#572974",
+        title: "#fff",
       },
 
-      videos:{
-        background: '#572974',
-        title: '#fff',
-        text: '#fff',
+      videos: {
+        background: "#572974",
+        title: "#fff",
+        text: "#fff",
       },
 
-      images:{
-        background: '#572974',
-        title: '#fff',
+      images: {
+        background: "#572974",
+        title: "#fff",
       },
 
-      cardCast:{
-        background: '#fff',
-        border: '1px solid #e0e0e0;',
-        name: '#825C97',
-        realName: '#572974',
-      }
-
+      cardCast: {
+        background: "#fff",
+        border: "1px solid #e0e0e0;",
+        name: "#825C97",
+        realName: "#572974",
+      },
+    },
+    auth: {
+      text: "#1C003A",
+      background: "#e0e0e0",
+      button: {
+        background: "#1C003A",
+        color: "#D5C6DB",
+      },
     },
 
-    background: '#000',
+    background: " #D5C6DB",
   },
-  
-  dark: {
 
-    catalog:{
+  dark: {
+    catalog: {
       // Cards area
-      background: '#1C003A',
-      titleColor: '#fff',
-      cardBackground: '#825C97',
-      movieNameColor: '#D5C6DB',
-      iconColor: '#D5C6DB',
-      detailsColor: '#FFFFFF', 
-      cardBorder: '1px solid #5e2c79',
+      background: " #1C003A",
+      titleColor: "#fff",
+      cardBackground: "#825C97",
+      movieNameColor: "#D5C6DB",
+      iconColor: "#D5C6DB",
+      detailsColor: "#FFFFFF",
+      cardBorder: "1px solid #5e2c79",
 
       // Card On Hover
-      onHoverBackground: '#D5C6DB',
-      onHoverBorderColor: '1px solid #c7bfcc',
-      detailsColorOnHover: '#fff',
-      movieNameColorOnHover: '#572974',
+      onHoverBackground: "#D5C6DB",
+      onHoverBorderColor: "1px solid #c7bfcc",
+      detailsColorOnHover: "#fff",
+      movieNameColorOnHover: "#572974",
 
       // SearchArea
-      searchAreaBackground: 'transparent',
-      searchAreaLetterColor: '#D5C6DB',
-      borderSearchColor: 'transparent',
-      searchButtonColor: '#D5C6DB',
-      searchTitleColor: '#FFF',
-      boxBorderColor: '#D5C6DB',
+      searchAreaBackground: "transparent",
+      searchAreaLetterColor: "#D5C6DB",
+      borderSearchColor: "transparent",
+      searchButtonColor: "#D5C6DB",
+      searchTitleColor: "#FFF",
+      boxBorderColor: "#D5C6DB",
 
       // GenreList
-      genreListBackground: 'transparent',
-      genreListLetterColor: '#fff',
-      borderFilterColor: '#D5C6DB',
-      genreListButtonColor: '#D5C6DB',
-      genreListTitleColor: '#fff',
+      genreListBackground: "transparent",
+      genreListLetterColor: "#fff",
+      borderFilterColor: "#D5C6DB",
+      genreListButtonColor: "#D5C6DB",
+      genreListTitleColor: "#fff",
 
       // Pagination
-      paginationBackground: 'transparent',
-      paginationNumberColor: '#fff',
-      paginationBackgroundSelect: '#D5C6DB',
-      paginationNumberColorSelect: '#825C97',
-    }, 
-
-    details:{
-
-      button:{
-        background: '#D5C6DB',
-        color: '#1C003A',
-      },
-
-      cardTitle:{
-        background: '#370B5E',
-        cardTitleColor: '#AB90B9',
-        cardDateColor: '#fff',
-        cardGenderColor: '#D5C6DB',
-        titlePunctuationColor: '#D5C6DB',
-        percentajeColor: '#D5C6DB',
-        circularProgressColor: '#fff',
-        iconColor: '#D5C6DB',
-        sipnosisColor: '#D5C6DB',
-        descriptionColor: '#fff',
-      },
-
-      cardInfo:{
-        background: '#825C97',
-        colorTitle: '#fff',
-        colorText: '#D5C6DB',
-      },
-
-      cast:{
-        background: '#1C003A',
-        title: '#fff',
-      },
-
-      videos:{
-        background: '#1C003A',
-        title: '#fff',
-        text: '#fff',
-      },
-
-      images:{
-        background: '#1C003A',
-        title: '#fff',
-      },
-
-      cardCast:{
-        background: '#825C97',
-        border: '1px solid #a17eb4',
-        name: '#fff',
-        realName: '#1C003A',
-      }
-
+      paginationBackground: "transparent",
+      paginationNumberColor: "#fff",
+      paginationBackgroundSelect: "#D5C6DB",
+      paginationNumberColorSelect: "#825C97",
     },
 
-    background: '#D5C6DB',
-    color: '#f5f5f5',
+    details: {
+      button: {
+        background: "#D5C6DB",
+        color: "#1C003A",
+      },
+
+      cardTitle: {
+        background: "#370B5E",
+        cardTitleColor: "#AB90B9",
+        cardDateColor: "#fff",
+        cardGenderColor: "#D5C6DB",
+        titlePunctuationColor: "#D5C6DB",
+        percentajeColor: "#D5C6DB",
+        circularProgressColor: "#fff",
+        iconColor: "#D5C6DB",
+        sipnosisColor: "#D5C6DB",
+        descriptionColor: "#fff",
+      },
+
+      cardInfo: {
+        background: "#825C97",
+        colorTitle: "#fff",
+        colorText: "#D5C6DB",
+      },
+
+      cast: {
+        background: "#1C003A",
+        title: "#fff",
+      },
+
+      videos: {
+        background: "#1C003A",
+        title: "#fff",
+        text: "#fff",
+      },
+
+      images: {
+        background: "#1C003A",
+        title: "#fff",
+      },
+
+      cardCast: {
+        background: "#825C97",
+        border: "1px solid #a17eb4",
+        name: "#fff",
+        realName: "#1C003A",
+      },
+    },
+
+    auth: {
+      text: "#D5C6DB",
+      background: "rgb(17, 0, 36)",
+      button: {
+        background: "#D5C6DB",
+        color: "#1C003A",
+      },
+    },
+    background: "#1C003A",
+    color: "#f5f5f5",
   },
 };
-
 
 const ThemeContext = createContext();
 
 function ThemeProvider(props) {
-const [theme, setTheme] = useState('dark');
-const toggleTheme = () => {
-  setTheme(theme === 'light' ? 'dark' : 'light');
-};
+  const [theme, setTheme] = useState("dark");
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
 
-const value = { theme: themeStyles[theme], toggleTheme };
+  const value = { theme: themeStyles[theme], toggleTheme };
 
-return (
-  <ThemeContext.Provider value={value} {...props} />
-);    
+  return <ThemeContext.Provider value={value} {...props} />;
 }
 
 const useTheme = () => useContext(ThemeContext);
