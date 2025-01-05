@@ -125,7 +125,7 @@ const languageNames = {
     },
 
     watchlist: {
-      title: "Mi Lista de Películas",
+      title: "Mi Lista   ",
       loading: "Cargando tus películas...",
       empty: "No hay películas en tu watchlist",
       loginRequired: "Por favor inicia sesión para ver tu watchlist",
