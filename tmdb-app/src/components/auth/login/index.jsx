@@ -50,16 +50,24 @@ const Login = () => {
   };
 
   return (
-    <div className="login" style={{backgroundColor:theme.background, minHeight:'92.7vh', width:"100%"}}>
+    <div
+      className="login"
+      style={{
+        backgroundColor: theme.background,
+        minHeight: "93.7vh",
+        width: "100%",
+      }}
+    >
       {userLoggedIn && <Navigate to={"/home"} replace={true} />}
-      <Container maxWidth="md" >
+      <Container maxWidth="lg">
         <Paper
           elevation={10}
           sx={{
-            marginTop: 7,
+            marginTop: 16,
             marginBottom: 4,
-            maxHeight: "600px",
-            // padding: 6,
+            paddingBottom: 3,
+            height: "650px",
+            background: theme.auth.background,
           }}
         >
           <Stack
@@ -72,22 +80,20 @@ const Login = () => {
               xs={6}
               md={3}
               p={4}
-              // minWidth={500}
               sx={{
-                // backgroundColor: "red",
                 boxSizing: "border-box",
                 flex: 1,
               }}
             >
               <Typography
                 component="h1"
-                variant="h2"
+                variant="h1"
                 sx={{
                   mb: 3,
                   textAlign: "center",
                   fontFamily: "Shrikhand, sans-serif",
-                  color: '#825c97',
-                  textShadow: '-3px 3px 0px  rgba(0, 0, 0, 1)',
+                  color: "#825c97",
+                  textShadow: "-4px 4px 0px  rgba(0, 0, 0, 1)",
                 }}
               >
                 {language.appName}
@@ -95,7 +101,7 @@ const Login = () => {
               <Typography
                 component="h1"
                 variant="h4"
-                sx={{ mb: 3, textAlign: "center" }}
+                sx={{ mb: 3, textAlign: "center", color:theme.auth.text }}
               >
                 {language.auth.signIn}
               </Typography>
@@ -112,7 +118,11 @@ const Login = () => {
                   noValidate
                   sx={{ width: "100%" }}
                 >
-                  <Typography component="h2" variant="h6" sx={{ mb: 1 }}>
+                  <Typography
+                    component="h2"
+                    variant="h6"
+                    sx={{ mb: 1, color: theme.auth.text }}
+                  >
                     {language.auth.email}
                   </Typography>
                   <TextField
@@ -123,9 +133,13 @@ const Login = () => {
                     autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    sx={{ mb: 2, outlineColor:"red" }}
+                    sx={{ mb: 2, outlineColor: "red" }}
                   />
-                  <Typography component="h2" variant="h6" sx={{ mb: 1 }}>
+                  <Typography
+                    component="h2"
+                    variant="h6"
+                    sx={{ mb: 1, color: theme.auth.text }}
+                  >
                     {language.auth.password}
                   </Typography>
                   <TextField
@@ -143,8 +157,8 @@ const Login = () => {
                     disabled={isSigningIn}
                     variant="contained"
                     sx={{
-                      backgroundColor: "purple",
-                      color: "white",
+                      backgroundColor: theme.auth.button.background,
+                      color: theme.auth.button.color,
                       mb: 2,
                       borderRadius: "30px",
                     }}
@@ -154,7 +168,11 @@ const Login = () => {
                 </Box>
                 <Link
                   to="/register"
-                  style={{ textDecoration: "none", marginBottom: "16px" }}
+                  style={{
+                    textDecoration: "none",
+                    marginBottom: "16px",
+                    color: theme.auth.text,
+                  }}
                 >
                   {language.auth.registerMsg}
                 </Link>
@@ -173,14 +191,12 @@ const Login = () => {
               sx={{
                 display: "flex",
                 justifyContent: "flex-end",
-                // backgroundColor: "black",
-                maxHeight: "600px",
+                maxHeight: "650px",
                 flex: 1,
               }}
             >
               <Box
                 component="img"
-                // src="https://i.pinimg.com/736x/18/60/fa/1860fabf0b643057a7e07355d4b8c57a.jpg"
                 src="https://i.pinimg.com/736x/71/5d/8f/715d8f5758684a294067fbb4e1715d30.jpg"
                 alt="Login Illustration"
                 sx={{

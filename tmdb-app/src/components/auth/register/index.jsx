@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useLanguage } from "../../../contexts/languageProvider";
 import { useTheme } from "../../../contexts/themeProvider";
+import { auth } from "../../../firebase/firebase";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -41,17 +42,18 @@ const Register = () => {
       className="register"
       style={{
         backgroundColor: theme.background,
-        minHeight: "92.7vh",
+        minHeight: "93.7vh",
         width: "100%",
       }}
     >
       {userLoggedIn && <Navigate to={"/home"} replace={true} />}
 
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Paper
           elevation={10}
           sx={{
-            marginTop: 7,
+            marginTop: 16,
+            background: theme.auth.background,
           }}
         >
           <Stack
@@ -66,14 +68,13 @@ const Register = () => {
               sx={{
                 display: "flex",
                 justifyContent: "flex-start",
-                maxHeight: "600px",
+                height: "650px",
                 flex: 1,
               }}
             >
               <Box
                 component="img"
                 src="https://i.pinimg.com/736x/18/60/fa/1860fabf0b643057a7e07355d4b8c57a.jpg"
-                // src="https://i.pinimg.com/736x/71/5d/8f/715d8f5758684a294067fbb4e1715d30.jpg"
                 alt="Login Illustration"
                 sx={{
                   width: "100%",
@@ -90,7 +91,6 @@ const Register = () => {
               xs={6}
               md={3}
               sx={{
-                // display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 minHeight: "500px",
@@ -98,11 +98,28 @@ const Register = () => {
                 p: 4,
               }}
             >
-              <Typography component="h2" variant="h4" sx={{ mb: 1 }}>
+              <Typography
+                component="h2"
+                variant="h4"
+                sx={{
+                  mb: 1,
+                  pt: 4,
+                  textAlign: "center",
+                  pb: 2,
+                  color: theme.auth.text,
+                }}
+              >
                 {language.auth.signUp}
               </Typography>
               <Box component="form" onSubmit={onSubmit}>
-                <Typography component="h2" variant="h6" sx={{ mb: 1 }}>
+                <Typography
+                  component="h2"
+                  variant="h6"
+                  sx={{
+                    mb: 1,
+                    color: theme.auth.text,
+                  }}
+                >
                   {language.auth.email}
                 </Typography>
                 <TextField
@@ -112,9 +129,19 @@ const Register = () => {
                   value={email}
                   disabled={isRegistering}
                   onChange={(e) => setEmail(e.target.value)}
-                  sx={{ mb: 2 }}
+                  sx={{
+                    mb: 2,
+                    color: theme.auth.text,
+                  }}
                 />
-                <Typography component="h2" variant="h6" sx={{ mb: 1 }}>
+                <Typography
+                  component="h2"
+                  variant="h6"
+                  sx={{
+                    mb: 1,
+                    color: theme.auth.text,
+                  }}
+                >
                   {language.auth.password}
                 </Typography>
                 <TextField
@@ -124,9 +151,13 @@ const Register = () => {
                   value={password}
                   disabled={isRegistering}
                   onChange={(e) => setPassword(e.target.value)}
-                  sx={{ mb: 3 }}
+                  sx={{ mb: 3, textDecorationColor: theme.auth.text }}
                 />
-                <Typography component="h2" variant="h6" sx={{ mb: 1 }}>
+                <Typography
+                  component="h2"
+                  variant="h6"
+                  sx={{ mb: 1, color: theme.auth.text }}
+                >
                   {language.auth.confirmPassword}
                 </Typography>
                 <TextField
@@ -136,7 +167,11 @@ const Register = () => {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setconfirmPassword(e.target.value)}
-                  sx={{ mb: 3 }}
+                  sx={{
+                    mb: 3,
+
+                    color: theme.auth.text,
+                  }}
                 />
                 <Button
                   type="submit"
@@ -144,8 +179,8 @@ const Register = () => {
                   disabled={isRegistering}
                   variant="contained"
                   sx={{
-                    backgroundColor: "purple",
-                    color: "white",
+                    backgroundColor: theme.auth.button.background,
+                    color: theme.auth.button.color,
                     mb: 2,
                     borderRadius: "30px",
                   }}
@@ -155,7 +190,11 @@ const Register = () => {
               </Box>
               <Link
                 to="/login"
-                style={{ textDecoration: "none", marginBottom: "16px" }}
+                style={{
+                  textDecoration: "none",
+                  marginBottom: "16px",
+                  color: theme.auth.text,
+                }}
               >
                 {language.auth.signInMsg}
               </Link>
