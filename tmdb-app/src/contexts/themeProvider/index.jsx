@@ -2,7 +2,46 @@ import React, { createContext, useContext, useState } from "react";
 
 const themeStyles = {
   light: {
-    catalog: {
+    watchlist: {
+      // Contenedor principal
+      background: '#D5C6DB',
+      titleColor: '#572974',
+      
+      // Tabla de películas
+      tableBackground: '#D5C6DB',
+      tableHeaderColor: '#572974',
+      tableBorder: '1px solid #D5C6DB',
+      tableRowColor: '#572974',
+      
+ 
+      // Tarjetas de película
+      cardBackground: '#D5C6DB',
+      cardBorder: '1px solid #D5C6DB',
+      cardTitleColor: '#572974',
+      cardTextColor: '#706A74',
+      
+      // Acciones y botones
+      buttonBackground: '#D5C6DB',
+      buttonColor: '#1C003A',
+      buttonHoverBg: '#825C97',
+      buttonHoverColor: '#fff',
+      deleteIconColor: '#1C003A',
+      deleteIconHoverColor: '#825C97',
+      
+      // Campo de búsqueda
+      searchBackground: '#fff',
+      searchTextColor: '#706A74',
+      searchBorder: '1px solid #D5C6DB',
+      searchPlaceholderColor: '#706A74',
+      
+      // Estados de carga y mensajes
+      loadingTextColor: '#572974',
+      emptyStateColor: '#706A74',
+      errorTextColor: '#FF0000'
+    },
+
+
+    catalog:{
       // Cards area
       background: "#D5C6DB",
       titleColor: "#572974",
@@ -101,7 +140,45 @@ const themeStyles = {
   },
 
   dark: {
-    catalog: {
+
+    watchlist: {
+      // Contenedor principal
+      background: '#1C003A',
+      titleColor: '#fff',
+      
+      // Tabla de películas
+      tableBackground: '#1C003A',
+      tableHeaderColor: '#fff',
+      tableBorder: '1px solidrgb(196, 179, 206)',
+      tableRowColor: '#D5C6DB',
+      
+      // Tarjetas de película
+      cardBackground: '#1C003A',
+      cardBorder: '1px solid #1C003A',
+      cardTitleColor: '#D5C6DB',
+      cardTextColor: '#fff',
+      
+      // Acciones y botones
+      buttonBackground: '#D5C6DB',
+      buttonColor: '#1C003A',
+      buttonHoverBg: '#825C97',
+      buttonHoverColor: '#D5C6DB',
+      deleteIconColor: '#D5C6DB',
+      deleteIconHoverColor: '#fff',
+      
+      // Campo de búsqueda
+      searchBackground: '#370B5E',
+      searchTextColor: '#FFFFFF',
+      searchBorder: '1px solid #D5C6DB',
+      searchPlaceholderColor: '#825C97',
+      
+      // Estados de carga y mensajes
+      loadingTextColor: '#D5C6DB',
+      emptyStateColor: '#825C97',
+      errorTextColor: '#FF6B6B'
+    },
+
+    catalog:{
       // Cards area
       background: " #1C003A",
       titleColor: "#fff",
@@ -200,6 +277,7 @@ const themeStyles = {
     color: "#f5f5f5",
   },
 };
+
 
 const ThemeContext = createContext();
 

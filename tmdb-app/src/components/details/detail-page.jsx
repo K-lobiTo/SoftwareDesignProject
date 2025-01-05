@@ -12,6 +12,7 @@ import Images from './cards/images.jsx'
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Container, Box } from "@mui/material";
+import { useFilter } from "../../contexts/filters/index.jsx";
 
 
 function DetailPage(props) {
@@ -22,8 +23,17 @@ function DetailPage(props) {
 
   const [buttonPosition, setButtonPosition] = useState(100);
 
+  const { page } = useFilter();
+
   const handleBack = () => {
-    navigate(`/catalog`);
+
+    if(page === 'catalog'){
+      navigate(`/catalog`);
+    }
+
+    else if(page === 'watchlist'){
+      navigate(`/watchlist`);
+    }
   };
 
   useEffect(() => {

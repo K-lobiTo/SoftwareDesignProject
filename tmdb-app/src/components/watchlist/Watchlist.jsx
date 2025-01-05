@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'; 
-import { useAuth } from "../../contexts/authContext/index"; 
-import { getMoviesByUser, removeMovieFromUser } from "../../firebase/firestore"; 
-import { getMovieById } from "../../tmdb/config"; 
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useAuth } from "../../contexts/authContext/index";
+import { getMoviesByUser, removeMovieFromUser } from "../../firebase/firestore";
+import { getMovieById } from "../../tmdb/config";
+import { useTheme } from "../../contexts/themeProvider/index";
+import { useLanguage } from '../../contexts/languageProvider';
+import { useFilter} from "../../contexts/filters";
+
 import {
   Box,
   TextField,
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -17,42 +21,44 @@ import {
   IconButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useLanguage } from '../../contexts/languageProvider';
 
 const Watchlist = () => {
   const { currentUser } = useAuth();
+  const { theme } = useTheme();
+  const { language, languageName} = useLanguage();
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const { languageName } = useLanguage();
+  const navigate = useNavigate(); 
+  const { selectPage } = useFilter();
 
   if (!currentUser) {
     return (
-      <Box sx={{ color: "white", padding: 2 }}>
-        Por favor inicia sesión para ver tu watchlist
+      <Box sx={{ color: theme.watchlist.emptyStateColor, padding: 2 }}>
+        {language.watchlist.loginRequired}
       </Box>
     );
   }
+
   const updateMovieDetails = async () => {
-      try {
-        const usrMovieIds = await getMoviesByUser(currentUser);
-        const movieDetailsPromises = usrMovieIds.map(id => getMovieById(id, languageName));
-        const movieDetails = await Promise.all(movieDetailsPromises);
+    try {
+      const usrMovieIds = await getMoviesByUser(currentUser);
+      const movieDetailsPromises = usrMovieIds.map(id => getMovieById(id, languageName));
+      const movieDetails = await Promise.all(movieDetailsPromises);
 
-        setMovies(movieDetails);
-        setFilteredMovies(movieDetails);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error al obtener las películas:", error);
-        setLoading(false);
-      }
-
-  }
+      setMovies(movieDetails);
+      setFilteredMovies(movieDetails);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error al obtener las películas:", error);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     updateMovieDetails();
-  }, [currentUser, languageName]);
+  }, [currentUser, languageName],);
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
@@ -63,63 +69,104 @@ const Watchlist = () => {
 
   const handleDelete = async (movieId) => {
     try {
-      console.log("Eliminando película con ID:", movieId);
-  
       await removeMovieFromUser(currentUser, movieId);
       await updateMovieDetails();
-      
     } catch (error) {
       console.error("Error al eliminar la película:", error);
     }
   };
-  
+
+  const handleNavigate = (movieId) => {
+    selectPage('watchlist');
+    navigate(`/details/${movieId}`);
+  };
+
   if (loading) {
-    return <Box sx={{ color: "white", padding: 2 }}>Cargando tus películas...</Box>;
+    return (
+      <Box sx={{ color: theme.watchlist.loadingTextColor, padding: 2 }}>
+        {language.watchlist.loading}
+      </Box>
+    );
   }
 
   return (
-    <Box sx={{
-      backgroundColor: "#6a0dad",
-      color: "white",
-      padding: 2,
-      minHeight: "100vh",
-      minWidth: "100%",
-    }}>
-      <Typography variant="h4" gutterBottom>Mi Lista de Películas</Typography>
+    <Box
+      sx={{
+        backgroundColor: theme.watchlist.background,
+        color: theme.watchlist.titleColor,
+        padding: 2,
+        minHeight: "100vh",
+        minWidth: "100%",
+        transition: "background-color 0.3s ease",
+      }}
+    >
+      <Box sx={{ 
+        display: "flex", 
+        justifyContent: "space-between", 
+        alignItems: "center", 
+        marginBottom: 2 
+      }}>
+        <Typography variant="h4" gutterBottom>
+          {language.watchlist.title}
+        </Typography>
+      </Box>
 
       <TextField
         fullWidth
         variant="outlined"
-        placeholder="Buscar película..."
+        placeholder={language.watchlist.searchPlaceholder}
         value={searchTerm}
         onChange={handleSearch}
         sx={{
           marginBottom: 2,
-          backgroundColor: "transparent",
+          backgroundColor: theme.watchlist.searchBackground,
           borderRadius: 1,
-          border: "1px solid white",
-          color: "white",
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: theme.watchlist.searchBorder,
+            },
+            '&:hover fieldset': {
+              borderColor: theme.watchlist.searchBorder,
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: theme.watchlist.searchBorder,
+            },
+          },
           'input': {
-            color: "white",
+            color: theme.watchlist.searchTextColor,
+            '&::placeholder': {
+              color: theme.watchlist.searchPlaceholderColor,
+              opacity: 1,
+            },
           },
         }}
       />
 
       {filteredMovies.length === 0 ? (
-        <Typography>No hay películas en tu watchlist</Typography>
+        <Typography sx={{ color: theme.watchlist.emptyStateColor }}>
+          {language.watchlist.empty}
+        </Typography>
       ) : (
-        <TableContainer component={Paper} sx={{ backgroundColor: "#6a0dad" }}>
+        <TableContainer 
+          component={Paper} 
+          sx={{ 
+            backgroundColor: theme.watchlist.tableBackground,
+            transition: "background-color 0.3s ease",
+            border: theme.watchlist.tableBorder,
+          }}
+        >
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell sx={{ color: "white" }}>Poster</TableCell>
-                <TableCell sx={{ color: "white" }}>Título</TableCell>
-                <TableCell sx={{ color: "white" }}>Duración</TableCell>
-                <TableCell sx={{ color: "white" }}>Fecha de Estreno</TableCell>
-                <TableCell sx={{ color: "white" }}>Estado</TableCell>
-                <TableCell sx={{ color: "white" }}>Acciones</TableCell>
+                <TableCell>{language.watchlist.poster}</TableCell>
+                <TableCell>{language.watchlist.movieTitle}</TableCell>
+                <TableCell>{language.watchlist.duration}</TableCell>
+                <TableCell>{language.watchlist.releaseDate}</TableCell>
+                <TableCell>{language.watchlist.status}</TableCell>
+                <TableCell>{language.watchlist.actions}</TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
               {filteredMovies.map((movie) => (
                 <TableRow key={movie.id}>
@@ -129,23 +176,26 @@ const Watchlist = () => {
                         ? `https://image.tmdb.org/t/p/w92${movie.poster_path}`
                         : '/placeholder-movie.png'}
                       alt={movie.title}
-                      style={{ width: "50px", height: "75px", objectFit: "cover" }}
+                      style={{ width: "50px", height: "75px", objectFit: "cover", borderRadius: "4px" }}
                     />
                   </TableCell>
-                  <TableCell sx={{ color: "white" }}>{movie.title}</TableCell>
-                  <TableCell sx={{ color: "white" }}>
-                    {movie.runtime ? `${movie.runtime} min` : 'N/A'}
+                  <TableCell 
+                    onClick={() => handleNavigate(movie.id)} 
+                    sx={{ cursor: "pointer", color: theme.watchlist.linkColor }}
+                  >
+                    {movie.title}
                   </TableCell>
-                  <TableCell sx={{ color: "white" }}>{movie.release_date}</TableCell>
-                  <TableCell sx={{ color: "white" }}>
+                  <TableCell>{movie.runtime ? `${movie.runtime} ${language.watchlist.minutes}` : language.watchlist.notAvailable}</TableCell>
+                  <TableCell>{movie.release_date}</TableCell>
+                  <TableCell>
                     {new Date(movie.release_date) > new Date()
-                      ? 'Próximamente'
-                      : 'Estrenada'}
+                      ? language.watchlist.upcoming
+                      : language.watchlist.released}
                   </TableCell>
                   <TableCell>
                     <IconButton
                       onClick={() => handleDelete(String(movie.id))}
-                      sx={{ color: "#fff9f7" }}
+                      sx={{ color: theme.watchlist.deleteIconColor }}
                     >
                       <DeleteIcon />
                     </IconButton>

@@ -50,6 +50,33 @@ const languageNames = {
       revenue: "Revenue:",
       undefined: "Unknown",
     },
+    watchlist: {
+      title: "My Movie List",
+      loading: "Loading your movies...",
+      empty: "No movies in your watchlist",
+      loginRequired: "Please login to see your watchlist",
+      searchPlaceholder: "Search movie...",
+      
+      // Table Headers
+      poster: "Poster",
+      movieTitle: "Title",
+      duration: "Duration",
+      releaseDate: "Release Date",
+      status: "Status",
+      actions: "Actions",
+      
+      // Movie Status
+      upcoming: "Upcoming",
+      released: "Released",
+      
+      // Duration
+      minutes: "min",
+      notAvailable: "N/A",
+      
+      // Messages
+      movieAdded: "Movie added to watchlist",
+      movieRemoved: "Movie removed from watchlist",
+    }, 
 
     auth: {
       //general
@@ -97,6 +124,36 @@ const languageNames = {
       allGenres: "Todos los Géneros",
     },
 
+    watchlist: {
+      title: "Mi Lista de Películas",
+      loading: "Cargando tus películas...",
+      empty: "No hay películas en tu watchlist",
+      loginRequired: "Por favor inicia sesión para ver tu watchlist",
+      searchPlaceholder: "Buscar película...",
+      
+      // Table Headers
+      poster: "Poster",
+      movieTitle: "Título",
+      duration: "Duración",
+      releaseDate: "Fecha de Estreno",
+      status: "Estado",
+      actions: "Acciones",
+      
+      // Movie Status
+      upcoming: "Próximamente",
+      released: "Estrenada",
+      
+      // Duration
+      minutes: "min",
+      notAvailable: "N/A",
+      
+      // Messages
+      movieAdded: "Película agregada a la lista",
+      movieRemoved: "Película eliminada de la lista",
+    },
+
+    
+
     details: {
       // Card Title
       punctuation: "Puntuación:",
@@ -136,6 +193,7 @@ const languageNames = {
     appName: "WatchList",
   },
 };
+
 
 const LanguageContext = createContext();
 
