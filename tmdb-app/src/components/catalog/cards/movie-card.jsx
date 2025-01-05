@@ -8,7 +8,7 @@ import { useLanguage } from '../../../contexts/languageProvider/index';
 
 import { addMovieToUser } from '../../../firebase/firestore';
 import { useAuth } from '../../../contexts/authContext';
-
+import { useFilter } from "../../../contexts/filters";
 
 function MovieCard(props) {
 
@@ -18,9 +18,11 @@ function MovieCard(props) {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const { currentUser } = useAuth();
+  const { selectPage } = useFilter();
 
   const handleCardClick = () => {
     navigate(`/details/${props.movieId}`);
+    selectPage('catalog');
   };
 
   const toggleFavorite = () => {
