@@ -6,7 +6,7 @@ import Home from "./components/for_testing";
 import Header from "./components/header";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
-import Catalog from "./components/catalog/Catalog";
+import Catalog from "./components/catalog/catalog";
 import Details from "./components/details/Details";
 import Watchlist from "./components/watchlist/Watchlist";
 
@@ -63,8 +63,6 @@ function App() {
               maxWidth={false}
               disableGutters
               sx={{
-                width: "100vw",
-                height: "100vh",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

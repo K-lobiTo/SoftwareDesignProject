@@ -4,6 +4,8 @@
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
+    min-width: 100%;
+    overflow-x: hidden;
 }
 
 .catalog-grid{
@@ -13,11 +15,8 @@
     grid-gap: auto;
     justify-content: center;
     align-items: center;
-    max-width: 90%;
-    min-width: 10px;
     flex-wrap: wrap;
-    gap: 20px;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .pagination{

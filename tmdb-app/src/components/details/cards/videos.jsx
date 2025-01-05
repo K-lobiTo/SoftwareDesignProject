@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import '../stylesheets/cards/videos.css';
 import { fetchMovieVideos } from '../../../tmdb/config';
 import { useTheme } from '../../../contexts/themeProvider/index.jsx';
+import { useLanguage } from '../../../contexts/languageProvider/index.jsx';
+import { Box } from "@mui/material";
 
 
 function Videos(props) {
+  const { languageName } = useLanguage();
   const { theme } = useTheme();
   const [videos, setVideos] = useState([]);
 
@@ -14,10 +17,10 @@ function Videos(props) {
       setVideos(youtubeVideos);
     }
     fetchVideos();
-  },[props.movieId, props.lenguage]);
+  },[props.movieId, languageName]);
 
   return (
-    <div className="card-video-main"
+    <Box className="card-video-main"
       style={{
         backgroundColor: theme.details.videos.background,
       }}
@@ -27,9 +30,9 @@ function Videos(props) {
           color: theme.details.videos.title,
         }}
       >Videos</h1>
-      <div className="video-list">
+      <Box className="video-list">
         {videos.map(video => (
-          <div className="video-item" key={video.key}>
+          <Box className="video-item" key={video.key}>
             <iframe
               src={`https://www.youtube.com/embed/${video.key}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -42,10 +45,10 @@ function Videos(props) {
                 color: theme.details.videos.text,
               }}
             >{video.name}</p>
-          </div>
+          </Box>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

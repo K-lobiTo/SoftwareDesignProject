@@ -2,6 +2,7 @@
     margin: 0;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     height: 700;
     min-width: 1200px;
 }

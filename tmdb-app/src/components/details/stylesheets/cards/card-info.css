@@ -28,3 +28,21 @@
 .revenue-text{
     margin-bottom: 0px;
 }
+
+@media (max-width: 768px){
+    .card-info{
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .original-title, .productor, .runtime, .lenguage, .budget, .revenue{
+        font-size: 20px;
+    }
+
+    .original-title-text, .productor-text, .runtime-text, .lenguage-text, .budget-text, .revenue-text{
+        font-size: 16px;
+    }
+    
+}

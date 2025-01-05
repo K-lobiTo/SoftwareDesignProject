@@ -7,6 +7,10 @@ import IconButton from '@mui/material/IconButton';
 import { useTheme } from '../../../contexts/themeProvider/index';
 import { fetchMovieData } from '../../../tmdb/config';
 import { useLanguage } from '../../../contexts/languageProvider/index.jsx';
+import Box from '@mui/material/Box';
+
+import { addMovieToUser } from '../../../firebase/firestore';
+import { useAuth } from '../../../contexts/authContext';
 
 const baseImageUrl = 'https://image.tmdb.org/t/p/original';
 
@@ -14,11 +18,12 @@ function CardTitle(props) {
 
   const { theme } = useTheme();
   const { language, languageName } = useLanguage();
+  const { currentUser } = useAuth();
 
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
+    addMovieToUser(currentUser, props.movieId);
   };
 
   const [movieData, setMovieData] = useState(null);
@@ -34,7 +39,7 @@ function CardTitle(props) {
 
   if (!movieData) {
     return (
-      <div className="loading-container">
+      <Box className="loading-container">
         <CircularProgress
           size={60}
           thickness={4}
@@ -42,17 +47,17 @@ function CardTitle(props) {
             color: '#6a0dad',
           }}
         />
-      </div>
+      </Box>
     );
   }
 
   return (
-    <div className="body-card"
+    <Box className="body-card"
       style={{
         background: theme.details.cardTitle.background,
       }}
     >
-      <div className="card-title"
+      <Box className="card-title"
         style={{
           background: theme.details.cardTitle.background,
         }}
@@ -60,13 +65,13 @@ function CardTitle(props) {
         <img className="image-title"
           src={baseImageUrl + movieData.poster_path}
           alt="principal_image" />
-        <div className="card-details">
+        <Box className="card-details">
           <p className="title-movie"
             style={{
               color: theme.details.cardTitle.cardTitleColor,
             }}
           >{movieData.title}</p>
-          <div className="gender-date">
+          <Box className="gender-date">
             <p className="date"
               style={{
                 color: theme.details.cardTitle.cardDateColor,
@@ -77,15 +82,15 @@ function CardTitle(props) {
                 color: theme.details.cardTitle.cardGenderColor,
               }}
             >{movieData.genres.map(genre => genre.name).join(' - ')}</p>
-          </div>
-          <div className="punctuation">
+          </Box>
+          <Box className="punctuation">
             <p className="title-punctuation"
               style={{
                 color: theme.details.cardTitle.titlePunctuationColor,
               }}
             >{language.details.punctuation}</p>
-            <div className="below-punctuation">
-              <div className="progress-container">
+            <Box className="below-punctuation">
+              <Box className="progress-container">
                 <CircularProgress
                   variant="determinate"
                   value={movieData.vote_average * 10}
@@ -100,15 +105,14 @@ function CardTitle(props) {
                     color: theme.details.cardTitle.percentajeColor,
                   }}
                 >{`${parseInt(movieData.vote_average * 10)}%`}</p>
-              </div>
+              </Box>
               <IconButton className="heart-button"
                 onClick={toggleFavorite}>
-                {isFavorite ? <FavoriteIcon className="favorite-icon" sx={{ color: theme.details.cardTitle.iconColor, fontSize: '100px' }} />
-                  : <FavoriteBorderIcon className="favorite-icon" sx={{ color: theme.details.cardTitle.iconColor, fontSize: '100px' }} />}
+                <FavoriteIcon className="favorite-icon" sx={{ color: theme.details.cardTitle.iconColor, fontSize: '100px' }} />
               </IconButton>
-            </div>
-          </div>
-          <div className="resume">
+            </Box>
+          </Box>
+          <Box className="resume">
             <p className="sipnosis"
               style={{
                 color: theme.details.cardTitle.sipnosisColor,
@@ -119,10 +123,10 @@ function CardTitle(props) {
                 color: theme.details.cardTitle.descriptionColor,
               }}
             >{movieData.overview}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 

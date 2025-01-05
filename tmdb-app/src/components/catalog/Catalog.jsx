@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 
 // import material ui components
-import { Grid } from "@mui/material";
+import { Grid2, Container, Box } from "@mui/material";
 import Pagination from '@mui/material/Pagination';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -174,12 +174,16 @@ function Catalog() {
   
   
   return (
-    <div className="catalog"
+    <Container className="catalog"
       style={{
+        backgroundColor: theme.catalog.background,
+        overflowX: 'hidden',
+      }}
+      sx={{
         backgroundColor: theme.catalog.background,
       }}
     >
-      <div className="title-filter">
+      <Box className="title-filter">
         <h1 className="title-catalog"
           style={{ 
             color: theme.catalog.titleColor,
@@ -200,14 +204,14 @@ function Catalog() {
           lenguage={languageName}
           visibility={visibleFilter}
           />
-      </div>
-      <div className="catalog-grid">
+      </Box>
+      <Box className="catalog-grid">
       {loading ? (
-        <div className="loading-spinner" style={{ textAlign: 'center' }}>
+        <Box className="loading-spinner" style={{ textAlign: 'center' }}>
           <CircularProgress size={60} style={{ color: '#572974' }} />
-        </div>
+        </Box>
       ) : (
-        <Grid container 
+        <Grid2 container 
           rowSpacing={4} 
           columnSpacing={{ xs: 10, sm: 2, md: 3 }}
           justifyContent="center"
@@ -215,7 +219,7 @@ function Catalog() {
           wrap="wrap"
         >
           {movies.map((movie, index) => (
-            <Grid item key={index}>
+            <Grid2 item key={index}>
               <MovieCard
                 movieId={movie.id}
                 image={movie.posterPath}
@@ -224,12 +228,12 @@ function Catalog() {
                 punctuation={movie.punctuation}
                 lenguage={languageName}
               />
-            </Grid>
+            </Grid2>
           ))}
-        </Grid>
+        </Grid2>
       )}
-      </div>
-      <div className="pagination"
+      </Box>
+      <Box className="pagination"
         style={{
           backgroundColor: theme.catalog.background,
         }}
@@ -271,8 +275,8 @@ function Catalog() {
             }
           }}
         />
-      </div>
-    </div>
+      </Box>
+    </Container>
   );
 }
 

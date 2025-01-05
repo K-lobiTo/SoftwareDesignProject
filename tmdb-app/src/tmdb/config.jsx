@@ -56,11 +56,12 @@ export const getGenres = async (language) => {
   }
 };
 
-export const getMovieById = async (movieId) => {
+export const getMovieById = async (movieId, language) => {
   try {
     const response = await axios.get(`${URL}/movie/${movieId}`, {
       params: {
         api_key: API_KEY,
+        language,
       },
     });
     return response.data;

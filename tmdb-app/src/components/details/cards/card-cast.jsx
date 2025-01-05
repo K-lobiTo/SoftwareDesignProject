@@ -1,12 +1,14 @@
 import '../stylesheets/cards/card-cast.css';
 import { useTheme } from '../../../contexts/themeProvider/index.jsx';
+import { Box } from "@mui/material";
+
 
 const CardCast = (props) => {
   
   const { theme } = useTheme();
 
     return (
-      <div className="card-cast"
+      <Box className="card-cast"
         style={{
           background: theme.details.cardCast.background,
           border: theme.details.cardCast.border,
@@ -17,7 +19,7 @@ const CardCast = (props) => {
           src={props.image}
           alt='principal_image'/>
       )}
-        <div className="text">
+        <Box className="text">
           <h3 className="real-name"
             style={{
               color: theme.details.cardCast.name,
@@ -28,8 +30,8 @@ const CardCast = (props) => {
             color: theme.details.cardCast.realName,
           }}
           >{props.name}</p>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   };
   

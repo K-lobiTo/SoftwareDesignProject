@@ -50,7 +50,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login" style={{backgroundColor:theme.background, height:"100%", width:"100%"}}>
+    <div className="login" style={{backgroundColor:theme.background, minHeight:'92.7vh', width:"100%"}}>
       {userLoggedIn && <Navigate to={"/home"} replace={true} />}
       <Container maxWidth="md" >
         <Paper

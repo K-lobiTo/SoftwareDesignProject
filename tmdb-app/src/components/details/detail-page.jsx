@@ -11,6 +11,7 @@ import { useTheme } from '../../contexts/themeProvider/index';
 import Images from './cards/images.jsx'
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Container, Box } from "@mui/material";
 
 
 function DetailPage(props) {
@@ -40,7 +41,7 @@ function DetailPage(props) {
     };
   }, []);
   
-  return <div className='main'>
+  return <Container className='main-container-details'>
     <IconButton 
         className='back-button' 
         onClick={handleBack} 
@@ -60,8 +61,12 @@ function DetailPage(props) {
         lenguage={props.lenguage}
       />
 
-      <div className='details'>
-        <div className='videos-cast'>
+      <Box className='details'>
+        <Box className='videos-cast'
+          style={{
+            background: theme.details.cast.background,
+          }}
+        >
 
             <Cast movieId={props.movieId}
                 lenguage={props.lenguage}
@@ -70,17 +75,15 @@ function DetailPage(props) {
             <Videos movieId={props.movieId}
                 lenguage={props.lenguage}
             />
-            <Images lenguage={props.lenguage}
-              movieId={props.movieId}
-            />
-        </div>
+
+        </Box>
         <CardInfo
           lg={props.lenguage}
           movieId={props.movieId}
         />
-      </div>
+      </Box>
       
-    </div>
+    </Container>
 }
 
 export default DetailPage;

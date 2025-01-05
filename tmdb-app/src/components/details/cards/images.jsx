@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import '../stylesheets/cards/images.css';
+import { Container, Box } from "@mui/material";
+
 
 const baseImageUrl = 'https://image.tmdb.org/t/p/original';
 
@@ -60,9 +62,9 @@ const Images = (props) => {
   const sortedBackdrops = [...backdrops].sort((a, b) => b.vote_average - a.vote_average);
 
   return (
-    <div className='container'>
+    <Container className='container'>
       <h1 className='images'>{label.image[props.lenguage]}</h1>
-      <div className='backdrop'>
+      <Container className='backdrop'>
       <ImageList
         sx={{
           display: 'grid',
@@ -89,8 +91,8 @@ const Images = (props) => {
       </ImageList>
 
 
-      </div>
-    </div>
+      </Container>
+    </Container>
   );
 };
 

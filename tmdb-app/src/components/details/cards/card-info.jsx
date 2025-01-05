@@ -40,13 +40,13 @@ const CardInfo = (props) => {
   }
 
   return (
-    <div
+    <Box
       className="card-info"
       style={{
         background: theme.details.cardInfo.background,
       }}
     >
-      <div className="text">
+      <Box className="text">
         <h1
           className="original-title"
           style={{
@@ -168,8 +168,8 @@ const CardInfo = (props) => {
         >
           ${movieData.revenue.toLocaleString()}
         </p>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import CardCast from './card-cast';
 import '../stylesheets/cards/cast.css';
 import { useTheme } from '../../../contexts/themeProvider/index';
@@ -26,7 +26,7 @@ const Cast = (props) => {
   }, [props.movieId, languageName]);
   
   return (
-    <div className='card-cast-main'
+    <Box className='card-cast-main'
         style={{
             background: theme.details.cast.background,
         }}
@@ -37,7 +37,7 @@ const Cast = (props) => {
           }}
         >{language.details.cast}
         </h1>
-        <div className='cards'
+        <Box className='cards'
         style={{
             background: theme.details.cast.background,
         }}
@@ -56,8 +56,8 @@ const Cast = (props) => {
             </Grid>
             ))}
         </Grid>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

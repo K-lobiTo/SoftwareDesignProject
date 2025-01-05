@@ -17,6 +17,7 @@ import {
   IconButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useLanguage } from '../../contexts/languageProvider';
 
 const Watchlist = () => {
   const { currentUser } = useAuth();
@@ -24,6 +25,7 @@ const Watchlist = () => {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const { languageName } = useLanguage();
 
   if (!currentUser) {
     return (
@@ -35,7 +37,7 @@ const Watchlist = () => {
   const updateMovieDetails = async () => {
       try {
         const usrMovieIds = await getMoviesByUser(currentUser);
-        const movieDetailsPromises = usrMovieIds.map(id => getMovieById(id));
+        const movieDetailsPromises = usrMovieIds.map(id => getMovieById(id, languageName));
         const movieDetails = await Promise.all(movieDetailsPromises);
 
         setMovies(movieDetails);
@@ -50,7 +52,7 @@ const Watchlist = () => {
 
   useEffect(() => {
     updateMovieDetails();
-  }, [currentUser]);
+  }, [currentUser, languageName]);
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
@@ -81,6 +83,7 @@ const Watchlist = () => {
       color: "white",
       padding: 2,
       minHeight: "100vh",
+      minWidth: "100%",
     }}>
       <Typography variant="h4" gutterBottom>Mi Lista de Películas</Typography>
 

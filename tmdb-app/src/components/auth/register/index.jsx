@@ -41,7 +41,7 @@ const Register = () => {
       className="register"
       style={{
         backgroundColor: theme.background,
-        height: "100%",
+        minHeight: "92.7vh",
         width: "100%",
       }}
     >
