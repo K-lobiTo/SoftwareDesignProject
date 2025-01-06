@@ -30,6 +30,7 @@ import SettingsDialog from '../../contexts/languageProvider/SettingsDialog';
 import { useState } from 'react';
 
 import { useTheme } from '../../contexts/themeProvider/index';
+import { useFilter } from '../../contexts/filters/index';
 
 
 const unLoggedPages = ["login", "register"];
@@ -47,6 +48,8 @@ const Header = () => {
   const [currentLanguage, setCurrentLanguage] = useState('en'); 
   const [openPopup, setOpenPopup] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const { selectGender, selectMovieName, selectNumberPage } = useFilter();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -83,6 +86,11 @@ const Header = () => {
     });
   };
   const toPage = (page) => {
+
+    selectGender("");
+    selectMovieName("");
+    selectNumberPage(1);
+
     if (page === "login") {
       toLogin();
     } else if (page === "register") {

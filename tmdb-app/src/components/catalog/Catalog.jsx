@@ -23,7 +23,7 @@ function Catalog() {
   // Theme
   const { theme } = useTheme();
   const { language, languageName } = useLanguage();
-  const { gender, movieName, selectGender, selectMovieName } = useFilter();
+  const { gender, movieName, selectGender, selectMovieName, numberPage, selectNumberPage } = useFilter();
 
 
   // GENDER
@@ -60,10 +60,12 @@ function Catalog() {
         if(genreId !== "") {
           selectGender(genreId);
           setPage(1);
+          selectNumberPage(1);
         }
 
         else {
           setPage(1);
+          selectNumberPage(1);
         }
       } catch (err) {
         console.error("Failed to fetch movies by genre. Please try again later.");
@@ -71,8 +73,9 @@ function Catalog() {
   };
   
   // PAGINATION
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(numberPage);
   const changePage = (event, value) => {
+    selectNumberPage(page);
     setPage(value);
   }
 
@@ -95,10 +98,12 @@ function Catalog() {
       if(query !== "") {
         setSelectedGenre("");
         setPage(1);
+        selectNumberPage(1);
       }
 
       else {
         setPage(1);
+        selectNumberPage(1);
       }
 
     } catch (err) {
@@ -169,8 +174,13 @@ function Catalog() {
       setEnableSearch(false);
       setVisibleFilter(true);
     }
-  }, [gender, movieName]);
+  }, [gender, movieName, page]);
   
+  // Pages
+  useEffect(() => {
+    selectNumberPage(page);
+    console.log('page: ' + page);
+  }, [page]);
   
   
   return (

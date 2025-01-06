@@ -16,7 +16,7 @@ import { useLanguage } from "../../../contexts/languageProvider";
 import { useTheme } from "../../../contexts/themeProvider";
 import { auth } from "../../../firebase/firebase";
 
-const Register = () => {
+const Register = () => { 
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -31,11 +31,37 @@ const Register = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    
+    if (password.length < 6) {
+      setErrorMessage(language.auth.passwordTooShort); 
+      return;
+    }
+    
+    if (password !== confirmPassword) {
+      setErrorMessage(language.auth.passwordsDontMatch);
+      return;
+    }
+  
+    setErrorMessage("");
+  
     if (!isRegistering) {
       setIsRegistering(true);
-      await doCreateUserWithEmailAndPassword(email, password);
+      try {
+        await doCreateUserWithEmailAndPassword(email, password);
+        navigate("/catalog");
+      } catch (error) {
+        if (error ===  "Firebase: Error (auth/email-already-in-use).") {
+          setErrorMessage(language.auth.alrearInUse);
+        }
+        else {
+          setErrorMessage(error);
+        }
+      } finally {
+        setIsRegistering(false);
+      }
     }
   };
+  
 
   return (
     <div
@@ -132,6 +158,21 @@ const Register = () => {
                   sx={{
                     mb: 2,
                     color: theme.auth.text,
+                    '& .MuiInputBase-input': {
+                      color: theme.auth.input, 
+                    },
+                    '& .MuiInputLabel-root': {
+                      color: theme.auth.input, 
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'transparent',
+                    },
+                    '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'transparent',
+                    },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'transparent',
+                    },
                   }}
                 />
                 <Typography
@@ -151,7 +192,26 @@ const Register = () => {
                   value={password}
                   disabled={isRegistering}
                   onChange={(e) => setPassword(e.target.value)}
-                  sx={{ mb: 3, textDecorationColor: theme.auth.text }}
+                  sx={{ 
+                    mb: 3, 
+                    textDecorationColor: theme.auth.text,
+                    color: theme.auth.text,
+                    '& .MuiInputBase-input': {
+                      color: theme.auth.input, 
+                    },
+                    '& .MuiInputLabel-root': {
+                      color: theme.auth.input, 
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'transparent',
+                    },
+                    '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'transparent',
+                    },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'transparent',
+                    },
+                  }}
                 />
                 <Typography
                   component="h2"
@@ -168,11 +228,37 @@ const Register = () => {
                   value={confirmPassword}
                   onChange={(e) => setconfirmPassword(e.target.value)}
                   sx={{
-                    mb: 3,
-
                     color: theme.auth.text,
+                    mb: 3,
+                    '& .MuiInputBase-input': {
+                      color: theme.auth.input, 
+                    },
+                    '& .MuiInputLabel-root': {
+                      color: theme.auth.input, 
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'transparent',
+                    },
+                    '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'transparent',
+                    },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'transparent',
+                    },
                   }}
                 />
+                {errorMessage && (
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "red",
+                      mb: 2,
+                      textAlign: "center",
+                    }}
+                  >
+                    {errorMessage}
+                  </Typography>
+                )}
                 <Button
                   type="submit"
                   fullWidth
@@ -187,6 +273,7 @@ const Register = () => {
                 >
                   {language.auth.register}
                 </Button>
+                
               </Box>
               <Link
                 to="/login"

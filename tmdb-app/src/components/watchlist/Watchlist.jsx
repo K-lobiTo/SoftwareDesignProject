@@ -112,7 +112,9 @@ const Watchlist = () => {
         <Typography
           variant="h4"
           gutterBottom
+          fontSize={50}
           sx={{ 
+            tabSize: 40,
             fontWeight: 700,
             marginBottom: 0,
             minWidth: 'fit-content' 
@@ -121,8 +123,13 @@ const Watchlist = () => {
           {language.watchlist.title}
         </Typography>
         <Box
+        style={{ display: "flex", justifyContent: "center",
+          minWidth: "300px", 
+          maxWidth:  "80vw",
+          backgroundColor: theme.watchlist.search.backgroundSearch,
+         }}
           sx={{
-            minWidth: "400px", 
+            minWidth: "300px", 
             maxWidth:  "80vw",
             paddingLeft:"15px",
             margin: '24px 20px',
@@ -142,7 +149,8 @@ const Watchlist = () => {
               ),
             }}
             sx={{
-              minWidth: "77vw",
+              minWidth: "50vw", 
+              maxWidth:  "80vw",
               backgroundColor: theme.watchlist.search.background,
               borderRadius: "25px",
               '& .MuiOutlinedInput-root': {

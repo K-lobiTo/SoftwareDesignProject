@@ -34,10 +34,17 @@ const Login = () => {
     e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
-      await doSignInWithEmailAndPassword(email, password);
-      // doSendEmailVerification()
+      setErrorMessage(""); 
+      try {
+        await doSignInWithEmailAndPassword(email, password);
+      } catch (error) {
+        setErrorMessage(language.auth.invalidCredentials);
+      } finally {
+        setIsSigningIn(false);
+      }
     }
   };
+  
 
   const onGoogleSignIn = (e) => {
     e.preventDefault();
@@ -58,7 +65,7 @@ const Login = () => {
         width: "100%",
       }}
     >
-      {userLoggedIn && <Navigate to={"/home"} replace={true} />}
+      {userLoggedIn && <Navigate to={"/catalog"} replace={true} />}
       <Container maxWidth="lg">
         <Paper
           elevation={10}
@@ -133,7 +140,25 @@ const Login = () => {
                     autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    sx={{ mb: 2, outlineColor: "red" }}
+                    sx={{ 
+                      mb: 2, 
+                      outlineColor: "red",
+                      '& .MuiInputBase-input': {
+                        color: theme.auth.input, 
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: theme.auth.input, 
+                      },
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'transparent',
+                      },
+                      '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'transparent',
+                      },
+                      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'transparent',
+                      },
+                    }}
                   />
                   <Typography
                     component="h2"
@@ -149,8 +174,33 @@ const Login = () => {
                     autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    sx={{ mb: 3 }}
+                    sx={{ mb: 3,
+                      '& .MuiInputBase-input': {
+                        color: theme.auth.input, 
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: theme.auth.input, 
+                      },
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'transparent',
+                      },
+                      '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'transparent',
+                      },
+                      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'transparent',
+                      },
+                     }}
                   />
+                  {errorMessage && (
+                    <Typography
+                      variant="body2"
+                      color="error"
+                      sx={{ textAlign: "center" }}
+                    >
+                      {errorMessage}
+                    </Typography>
+                  )};
                   <Button
                     type="submit"
                     fullWidth
@@ -161,6 +211,7 @@ const Login = () => {
                       color: theme.auth.button.color,
                       mb: 2,
                       borderRadius: "30px",
+                      
                     }}
                   >
                     {language.auth.signIn}

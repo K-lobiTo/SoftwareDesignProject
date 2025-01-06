@@ -24,10 +24,11 @@ const themeStyles = {
       loadingTextColor: '#D5C6DB',
       emptyStateColor: '#825C97',
       errorTextColor: '#FF6B6B',
+      
 
   
       search: {
-        background: '#FFF',
+        background: 'transparent',
         textColor: '#FFFFFF',
         placeholderColor: '#FFFFFF',
         iconColor: '#825C97',
@@ -44,6 +45,7 @@ const themeStyles = {
         minContainerWidth: '400px',
         maxContainerWidth: '80vw',
         inputColor:"#825C97",
+        backgroundSearch: "#fff",
       }
     },
 
@@ -135,6 +137,7 @@ const themeStyles = {
       },
     },
     auth: {
+      input: '#1C003A',
       text: "#1C003A",
       background: "#e0e0e0",
       button: {
@@ -190,6 +193,7 @@ const themeStyles = {
         minContainerWidth: '400px',
         maxContainerWidth: '80vw',
         inputColor:"#FFFFFF",
+        backgroundSearch: "transparent",
       }
     },
 
@@ -281,6 +285,7 @@ const themeStyles = {
     },
 
     auth: {
+      input: '#fff',
       text: "#D5C6DB",
       background: "rgb(17, 0, 36)",
       button: {

@@ -5,6 +5,7 @@ const FilterContext = createContext();
 function FilterProvider(props) {
   const [gender, setGender] = useState('');
   const [movieName, setMovieName] = useState('');
+  const [numberPage, setNumberPage] = useState(1);
   const [page, setPage] = useState('catalog');
 
   const selectGender = (genderId) => {
@@ -21,7 +22,12 @@ function FilterProvider(props) {
     setPage(page);
   };
 
-  const value = { gender , selectGender, movieName, selectMovieName, selectPage, page };
+  const selectNumberPage = (num) => {
+    setNumberPage(num);
+    console.log('pageNumber: ' + numberPage);
+  }
+
+  const value = { gender , selectGender, movieName, selectMovieName, selectPage, page, selectNumberPage, numberPage };
 
   return (
     <FilterContext.Provider value={value} {...props} />

@@ -92,6 +92,11 @@ const languageNames = {
       register: "Create Account",
       confirmPassword: "Confirm your password",
       signInMsg: "Already have an account?",
+
+      passwordsDontMatch: "Passwords don't match",
+      passwordTooShort: "Password must be at least 6 characters long",
+      alrearInUse: "Email already in use",
+      invalidCredentials: "Invalid credentials",
     },
     appName: "WatchList",
   },
@@ -189,6 +194,11 @@ const languageNames = {
       register: "Registrarse",
       confirmPassword: "Confirmar contraseña",
       signInMsg: "Ya tienes una cuenta?",
+
+      passwordsDontMatch: "Las contraseñas no coinciden",
+      passwordTooShort: "La contraseña debe tener al menos 6 caracteres",
+      alrearInUse: "Correo ya en uso",
+      invalidCredentials: "Credenciales inválidas",
     },
     appName: "WatchList",
   },
