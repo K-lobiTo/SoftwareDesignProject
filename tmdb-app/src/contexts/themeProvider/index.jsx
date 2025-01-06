@@ -146,7 +146,15 @@ const themeStyles = {
       },
     },
 
+    settings:{
+      background: "#fff",
+      iconColor: "#000",
+      dividerColor: "#eee",
+      buttonLine: "#000",
+    },
+
     background: " #D5C6DB",
+    
   },
 
   dark: {
@@ -293,6 +301,14 @@ const themeStyles = {
         color: "#1C003A",
       },
     },
+
+    settings:{
+      background: "rgba(18, 18, 18, 1)",
+      iconColor: "#fff",
+      dividerColor: "#fff",
+      buttonLine: "#fff",
+    },
+
     background: "#1C003A",
     color: "#f5f5f5",
   },
@@ -307,7 +323,7 @@ function ThemeProvider(props) {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  const value = { theme: themeStyles[theme], toggleTheme };
+  const value = { theme: themeStyles[theme], toggleTheme, themeName: theme };
 
   return <ThemeContext.Provider value={value} {...props} />;
 }

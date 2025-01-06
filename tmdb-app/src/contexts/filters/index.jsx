@@ -24,10 +24,15 @@ function FilterProvider(props) {
 
   const selectNumberPage = (num) => {
     setNumberPage(num);
-    console.log('pageNumber: ' + numberPage);
   }
 
-  const value = { gender , selectGender, movieName, selectMovieName, selectPage, page, selectNumberPage, numberPage };
+  const reset = () => {
+    setGender('');
+    setMovieName('');
+    setNumberPage(1);
+  };
+
+  const value = { gender , selectGender, movieName, selectMovieName, selectPage, page, selectNumberPage, numberPage, reset };
 
   return (
     <FilterContext.Provider value={value} {...props} />

@@ -158,7 +158,7 @@ function Catalog() {
     };
   
     fetchMovies();
-  }, [selectedGenre, page, languageName]);
+  }, [selectedGenre, page, languageName, movieName]);
 
   useEffect(() => {
     setSelectedGenre(gender);
@@ -167,12 +167,15 @@ function Catalog() {
     if (movieName !== "") {
       setEnableSearch(false);
       setVisibleFilter(false);
+      selectNumberPage(1);
     } else if (gender !== "") {
       setEnableSearch(true);
       setVisibleFilter(true);
+      selectNumberPage(1);
     } else {
       setEnableSearch(false);
       setVisibleFilter(true);
+      selectNumberPage(1);
     }
   }, [gender, movieName, page]);
   

@@ -49,7 +49,7 @@ const Header = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const { selectGender, selectMovieName, selectNumberPage } = useFilter();
+  const { movieName, reset } = useFilter();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -87,9 +87,7 @@ const Header = () => {
   };
   const toPage = (page) => {
 
-    selectGender("");
-    selectMovieName("");
-    selectNumberPage(1);
+    reset();
 
     if (page === "login") {
       toLogin();

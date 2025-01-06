@@ -4,6 +4,7 @@ import { useLanguage } from './index';
 import { useTheme } from '../themeProvider/index'; 
 import TranslateIcon from '@mui/icons-material/Translate';
 import ContrastIcon from '@mui/icons-material/Contrast';
+import ToggleTheme from '../../components/header/toggleTheme';
 
 
 const LanguageDialog = ({ open, handleClose }) => {
@@ -30,7 +31,7 @@ const LanguageDialog = ({ open, handleClose }) => {
              sx={{
                 '& .MuiDialog-paper': {
                     borderRadius: '16px',
-                    backgroundColor: "white"
+                    backgroundColor: theme.settings.background,
                 },
                 
             }}
@@ -39,14 +40,15 @@ const LanguageDialog = ({ open, handleClose }) => {
             <DialogContent>
                 <Box mb={3}>
                     <Typography variant="subtitle1" gutterBottom>
-                        <TranslateIcon sx={{ verticalAlign: 'middle', marginRight: '8px' }} />
+                        <TranslateIcon sx={{ verticalAlign: 'middle', marginRight: '8px', color: theme.settings.iconColor }} />
                     </Typography>
                     <Grid container spacing={2} alignItems="center" justifyContent="center">
                         <Grid item>
                             <Button
                                 onClick={() => handleLanguageChange('es-MX')}
-                                variant={languageName === 'es-MX' ? 'contained' : 'outlined'}
-                                color="purple"
+                                variant={languageName === 'es-MX' ? 'outlined' : 'contained'}
+                                color="transparent"
+                                style={{ color: theme.settings.buttonLine , borderColor: theme.settings.buttonLine }}
                             >
                                 Español
                             </Button>
@@ -54,38 +56,26 @@ const LanguageDialog = ({ open, handleClose }) => {
                         <Grid item>
                             <Button
                                 onClick={() => handleLanguageChange('en-US')}
-                                variant={languageName === 'en-US' ? 'contained' : 'outlined'}
-                                color="purple"
+                                color='transparent'
+                                variant={languageName === 'en-US' ? 'outlined' : 'contained'}
+                                style={{ color: theme.settings.buttonLine , borderColor: theme.settings.buttonLine }}
                             >
                                 English
                             </Button>
                         </Grid>
                     </Grid>
                 </Box>
-                <Divider />
-                <Box mt={4} mb={1}>
-                    <Typography variant="subtitle1" gutterBottom>
-                        <ContrastIcon sx={{ verticalAlign: 'middle', marginRight: '8px' }} />
-                    </Typography>
-                    <Box display="flex" justifyContent="center" alignItems="center">
-
-                    <FormControlLabel
-                    control={
-                        <Switch 
-                            size="small" 
-                            checked={toggleTheme} 
-                            onChange={handleThemeChange } 
-                        sx={{
-                             '& .MuiSwitch-switchBase.Mui-checked': {
-                                color: 'purple', 
-                            },
-                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                                backgroundColor: 'purple', 
-                        },
+                <Divider 
+                    sx={{
+                        backgroundColor: theme.settings.dividerColor,
                     }}
-                    />
-                }
-               />
+                />
+                <Box mt={2} mb={2}>
+                    <Typography variant="subtitle1" gutterBottom>
+                        <ContrastIcon sx={{ verticalAlign: 'middle', marginRight: '8px', color: theme.settings.iconColor }} />
+                    </Typography>
+                <Box display="flex" justifyContent="center" alignItems="center">
+                    <ToggleTheme/>
                </Box>
             </Box>
             </DialogContent>
