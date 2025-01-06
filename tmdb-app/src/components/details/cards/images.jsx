@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import '../stylesheets/cards/images.css';
-import { Container, Box } from "@mui/material";
-
+import { Box } from "@mui/material";
 
 const baseImageUrl = 'https://image.tmdb.org/t/p/original';
 
@@ -17,13 +16,6 @@ const Images = (props) => {
       "en-US": "Images",
       "es-MX": "Imágenes"
     },
-  };
-
-  const srcset = (image, size, rows = 1, cols = 1) => {
-    return {
-      src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-      srcSet: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format&dpr=2 2x`,
-    };
   };
 
   useEffect(() => {
@@ -46,53 +38,64 @@ const Images = (props) => {
         setLoading(false);
       }
     };
-
     fetchMovieImages();
   }, [props.movieId]);
 
-  if (loading) return <div>Cargando...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div style={{ color: 'white' }}>Cargando...</div>;
+  if (error) return <div style={{ color: 'white' }}>Error: {error}</div>;
 
   const { backdrops } = movieData;
 
   if (!Array.isArray(backdrops) || backdrops.length === 0) {
-    return <div>No hay imágenes disponibles</div>;
+    return <div style={{ color: 'white' }}>No hay imágenes disponibles</div>;
   }
 
   const sortedBackdrops = [...backdrops].sort((a, b) => b.vote_average - a.vote_average);
 
   return (
-    <Container className='container'>
-      <h1 className='images'>{label.image[props.lenguage]}</h1>
-      <Container className='backdrop'>
-      <ImageList
-        sx={{
-          display: 'grid',
-          gap: '20px',
-          maxWidth: '94%',
-          margin: '0 auto',
-        }}
+    <Box sx={{ width: '100%', padding: '0 16px 16px 16px' }}>
+      <h2 className="images">{label.image[props.lenguage]}</h2>
+      <ImageList 
+        sx={{ 
+          width: '100%',
+          height: 'auto',
+          gap: 16,
+          overflowY: 'visible',
+          margin: 0
+        }} 
         cols={3}
       >
         {sortedBackdrops.map((backdrop, index) => (
-          <ImageListItem key={backdrop.file_path}>
+          <ImageListItem 
+            key={backdrop.file_path}
+            sx={{
+              overflow: 'hidden',
+              borderRadius: '8px',
+              '& img': {
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                transition: 'transform 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'scale(1.05)'
+                }
+              }
+            }}
+          >
             <img
-              {...srcset(`${baseImageUrl}${backdrop.file_path}`, 400, 4, 4)}
+              src={`${baseImageUrl}${backdrop.file_path}`}
               alt={`Backdrop ${index + 1}`}
               loading="lazy"
               style={{
-                objectFit: 'cover',
-                width: 'auto',
-                height: 'auto',
+                width: '100%',
+                height: '100%',
+                aspectRatio: '16/9',
               }}
             />
           </ImageListItem>
         ))}
       </ImageList>
-
-
-      </Container>
-    </Container>
+    </Box>
   );
 };
 
