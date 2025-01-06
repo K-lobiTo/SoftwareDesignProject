@@ -262,6 +262,26 @@ const Header = () => {
                   </Button>
                 ))}
               </Box>
+              <Tooltip title={language.header.config}>
+              <IconButton 
+                sx={{
+                  p: 0,
+                  mx: 1,
+                  backgroundColor: 'transparent',
+                  '&:hover': { backgroundColor: 'transparent' },
+                  '&:active': { backgroundColor: 'transparent' },
+                  '&:focus': { backgroundColor: 'transparent' },
+                }}
+                onClick={handleClickOpen} 
+              >
+                <SettingsSuggestIcon sx={{ fontSize: 45, color: '#A9A9A9' }} />
+              </IconButton>
+            </Tooltip>
+
+            <SettingsDialog
+              open={open} 
+              handleClose={handleClose} 
+            />
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
