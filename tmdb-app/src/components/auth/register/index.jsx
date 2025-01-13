@@ -72,7 +72,7 @@ const Register = () => {
         width: "100%",
       }}
     >
-      {userLoggedIn && <Navigate to={"/home"} replace={true} />}
+      {userLoggedIn && <Navigate to={"/catalog"} replace={true} />}
 
       <Container maxWidth="lg">
         <Paper
