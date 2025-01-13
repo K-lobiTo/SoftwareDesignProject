@@ -1,13 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
 import { doSignOut } from "../../firebase/auth";
 
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
-import FormatItalicIcon from '@mui/icons-material/FormatItalic';
-
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import ToggleButton from '@mui/material/ToggleButton';
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -21,21 +16,14 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import MovieFilterIcon from '@mui/icons-material/MovieFilter';
-import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
-
+import MovieFilterIcon from "@mui/icons-material/MovieFilter";
+import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 
 import { useLanguage } from "../../contexts/languageProvider";
-import SettingsDialog from '../../contexts/languageProvider/SettingsDialog';
-import { useState } from 'react';
+import SettingsDialog from "../../contexts/languageProvider/SettingsDialog";
+import { useState } from "react";
 
-import { useTheme } from '../../contexts/themeProvider/index';
-import { useFilter } from '../../contexts/filters/index';
-
-
-const unLoggedPages = ["login", "register"];
-const loggedPages = ["catalog", "watchList"];
-const settings = ["Sign Out"];
+import { useFilter } from "../../contexts/filters/index";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -43,13 +31,26 @@ const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+
+  // Lenguage
   const { language, toggleLanguage, languageName } = useLanguage();
-  const { theme, toggleTheme } = useTheme();
-  const [currentLanguage, setCurrentLanguage] = useState('en'); 
+  const [loggedPages, setLoggedPages] = useState([
+    language.header.catalogPage,
+    language.header.watchlistPage,
+  ]);
+  const [unLoggedPages, setUnLoggedPages] = useState([
+    language.header.login,
+    language.header.register,
+  ]);
+
+
+  const settings = [language.header.signOut];
+
+  const [currentLanguage, setCurrentLanguage] = useState("en");
   const [openPopup, setOpenPopup] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const { movieName, reset } = useFilter();
+  const { reset } = useFilter();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -86,23 +87,35 @@ const Header = () => {
     });
   };
   const toPage = (page) => {
-
     reset();
 
-    if (page === "login") {
-      toLogin();
-    } else if (page === "register") {
-      toRegister();
+    if (languageName !== "en-US") {
+      if (page === language.header.login) {
+        toLogin();
+      } else if (page === language.header.register) {
+        toRegister();
+      } else if (page === language.header.watchlistPage) {
+        navigate("/watchlist");
+      } else if (page === language.header.catalogPage) {
+        navigate("/catalog");
+      }
     } else {
       navigate(`/${page}`);
     }
   };
 
+  // useEffect = (() => {setLoggedPages([
+  //   language.header.login,
+  //   language.header.register,
+  // ])}, []);
+
   return (
     <AppBar position="static" sx={{ backgroundColor: "white" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <MovieFilterIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1, color: "purple" }} />
+          <MovieFilterIcon
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1, color: "purple" }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -138,7 +151,7 @@ const Header = () => {
             }}
           >
             {language.appName}
-            </Typography>
+          </Typography>
           {userLoggedIn ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -146,9 +159,17 @@ const Header = () => {
                   <Typography
                     key={page}
                     onClick={() => toPage(page)}
-                    sx={{ my: 2, color: "purple", display: "block", cursor: "pointer", fontFamily: "monospace", textTransform: "uppercase", mx: 1 }}
+                    sx={{
+                      my: 2,
+                      color: "purple",
+                      display: "block",
+                      cursor: "pointer",
+                      fontFamily: "monospace",
+                      textTransform: "uppercase",
+                      mx: 1,
+                    }}
                   >
-                    {language.header[page]}
+                    {page}
                   </Typography>
                 ))}
               </Box>
@@ -181,48 +202,54 @@ const Header = () => {
                 >
                   {loggedPages.map((page) => (
                     <MenuItem key={page} onClick={() => toPage(page)}>
-                      <Typography sx={{ textAlign: "center", color: "purple", fontFamily: "monospace", textTransform: "uppercase" }}>
-                        {language.header[page]}
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                          color: "purple",
+                          fontFamily: "monospace",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {page}
                       </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
               </Box>
-              <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-              <Tooltip title={language.header.config}>
-              <IconButton 
-                sx={{
-                  p: 0,
-                  mx: 1,
-                  backgroundColor: 'transparent',
-                  '&:hover': { backgroundColor: 'transparent' },
-                  '&:active': { backgroundColor: 'transparent' },
-                  '&:focus': { backgroundColor: 'transparent' },
-                }}
-                onClick={handleClickOpen} 
-              >
-                <SettingsSuggestIcon sx={{ fontSize: 45, color: '#A9A9A9' }} />
-              </IconButton>
-            </Tooltip>
+              <Box sx={{ flexGrow: 0, display: "flex", alignItems: "center" }}>
+                <Tooltip title={language.header.config}>
+                  <IconButton
+                    sx={{
+                      p: 0,
+                      mx: 1,
+                      backgroundColor: "transparent",
+                      "&:hover": { backgroundColor: "transparent" },
+                      "&:active": { backgroundColor: "transparent" },
+                      "&:focus": { backgroundColor: "transparent" },
+                    }}
+                    onClick={handleClickOpen}
+                  >
+                    <SettingsSuggestIcon
+                      sx={{ fontSize: 45, color: "#A9A9A9" }}
+                    />
+                  </IconButton>
+                </Tooltip>
 
-            <SettingsDialog
-              open={open} 
-              handleClose={handleClose} 
-            />
-      <Tooltip title={language.header.signOut}>
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mx: 1 }}>
-          <Avatar
-            alt={currentUser.email}
-            src={currentUser.photoURL}
-          />
-        </IconButton>
-      </Tooltip>
-      <SettingsDialog
-        open={openPopup}
-        handleClose={handleClose}
-        currentLanguage={currentLanguage}
-        setLanguage={setCurrentLanguage}
-      />
+                <SettingsDialog open={open} handleClose={handleClose} />
+                <Tooltip title={language.header.signOut}>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mx: 1 }}>
+                    <Avatar
+                      alt={currentUser.email}
+                      src={currentUser.photoURL}
+                    />
+                  </IconButton>
+                </Tooltip>
+                <SettingsDialog
+                  open={openPopup}
+                  handleClose={handleClose}
+                  currentLanguage={currentLanguage}
+                  setLanguage={setCurrentLanguage}
+                />
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"
@@ -241,7 +268,13 @@ const Header = () => {
                 >
                   {settings.map((setting) => (
                     <MenuItem key={setting} onClick={toLogin}>
-                      <Typography sx={{ textAlign: "center", color: "purple", fontFamily: "monospace" }}>
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                          color: "purple",
+                          fontFamily: "monospace",
+                        }}
+                      >
                         {setting}
                       </Typography>
                     </MenuItem>
@@ -256,32 +289,36 @@ const Header = () => {
                   <Button
                     key={page}
                     onClick={() => toPage(page)}
-                    sx={{ my: 2, color: "purple", display: "block", fontFamily: "monospace" }}
+                    sx={{
+                      my: 2,
+                      color: "purple",
+                      display: "block",
+                      fontFamily: "monospace",
+                    }}
                   >
                     {page}
                   </Button>
                 ))}
               </Box>
               <Tooltip title={language.header.config}>
-              <IconButton 
-                sx={{
-                  p: 0,
-                  mx: 1,
-                  backgroundColor: 'transparent',
-                  '&:hover': { backgroundColor: 'transparent' },
-                  '&:active': { backgroundColor: 'transparent' },
-                  '&:focus': { backgroundColor: 'transparent' },
-                }}
-                onClick={handleClickOpen} 
-              >
-                <SettingsSuggestIcon sx={{ fontSize: 45, color: '#A9A9A9' }} />
-              </IconButton>
-            </Tooltip>
+                <IconButton
+                  sx={{
+                    p: 0,
+                    mx: 1,
+                    backgroundColor: "transparent",
+                    "&:hover": { backgroundColor: "transparent" },
+                    "&:active": { backgroundColor: "transparent" },
+                    "&:focus": { backgroundColor: "transparent" },
+                  }}
+                  onClick={handleClickOpen}
+                >
+                  <SettingsSuggestIcon
+                    sx={{ fontSize: 45, color: "#A9A9A9" }}
+                  />
+                </IconButton>
+              </Tooltip>
 
-            <SettingsDialog
-              open={open} 
-              handleClose={handleClose} 
-            />
+              <SettingsDialog open={open} handleClose={handleClose} />
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
@@ -311,7 +348,13 @@ const Header = () => {
                 >
                   {unLoggedPages.map((page) => (
                     <MenuItem key={page} onClick={() => toPage(page)}>
-                      <Typography sx={{ textAlign: "center", color: "purple", fontFamily: "monospace" }}>
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                          color: "purple",
+                          fontFamily: "monospace",
+                        }}
+                      >
                         {page}
                       </Typography>
                     </MenuItem>
