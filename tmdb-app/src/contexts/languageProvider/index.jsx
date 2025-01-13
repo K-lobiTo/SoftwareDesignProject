@@ -15,6 +15,15 @@ const languageNames = {
       english: "English",
       light: "Light",
       dark: "Dark",
+
+      // unLoggedPages
+      register: "Register",
+      login: "Login",
+
+      // LoggedPages
+      catalogPage: "Catalog",
+      whatchlistPage: "WhatchList",
+
     },
 
     catalog: {
@@ -56,7 +65,7 @@ const languageNames = {
       empty: "No movies in your watchlist",
       loginRequired: "Please login to see your watchlist",
       searchPlaceholder: "Search movie...",
-      
+
       // Table Headers
       poster: "Poster",
       movieTitle: "Title",
@@ -64,19 +73,19 @@ const languageNames = {
       releaseDate: "Release Date",
       status: "Status",
       actions: "Actions",
-      
+
       // Movie Status
       upcoming: "Upcoming",
       released: "Released",
-      
+
       // Duration
       minutes: "min",
       notAvailable: "N/A",
-      
+
       // Messages
       movieAdded: "Movie added to watchlist",
       movieRemoved: "Movie removed from watchlist",
-    }, 
+    },
 
     auth: {
       //general
@@ -114,6 +123,15 @@ const languageNames = {
       english: "Inglés",
       light: "Claro",
       dark: "Oscuro",
+
+      // unLoggedPages
+      register: "Registro",
+      login: "Inicio de Sesión",
+
+      // LoggedPages
+      catalogPage: "Catálogo",
+      whatchlistPage: "Mi Lista",
+
     },
 
     catalog: {
@@ -135,7 +153,7 @@ const languageNames = {
       empty: "No hay películas en tu watchlist",
       loginRequired: "Por favor inicia sesión para ver tu watchlist",
       searchPlaceholder: "Buscar película...",
-      
+
       // Table Headers
       poster: "Poster",
       movieTitle: "Título",
@@ -143,21 +161,19 @@ const languageNames = {
       releaseDate: "Fecha de Estreno",
       status: "Estado",
       actions: "Acciones",
-      
+
       // Movie Status
       upcoming: "Próximamente",
       released: "Estrenada",
-      
+
       // Duration
       minutes: "min",
       notAvailable: "N/A",
-      
+
       // Messages
       movieAdded: "Película agregada a la lista",
       movieRemoved: "Película eliminada de la lista",
     },
-
-    
 
     details: {
       // Card Title
@@ -203,7 +219,6 @@ const languageNames = {
     appName: "WatchList",
   },
 };
-
 
 const LanguageContext = createContext();
 
