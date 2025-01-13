@@ -22,7 +22,7 @@ const languageNames = {
 
       // LoggedPages
       catalogPage: "Catalog",
-      whatchlistPage: "WhatchList",
+      watchlistPage: "WatchList",
 
     },
 
@@ -130,7 +130,7 @@ const languageNames = {
 
       // LoggedPages
       catalogPage: "Catálogo",
-      whatchlistPage: "Mi Lista",
+      watchlistPage: "Mi Lista",
 
     },
 
