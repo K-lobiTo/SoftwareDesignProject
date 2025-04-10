@@ -20,7 +20,7 @@ Este comando permitira redirigir el proyecto al localhost: http://localhost:5173
 https://api.themoviedb.org/3/genre/movie/list
 ```
 
-## Página hosteada
+## Link a la App
 ### [Ingresar a la página web](https://mellifluous-zuccutto-ca8d61.netlify.app/)
 
  
