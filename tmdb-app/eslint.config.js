@@ -10,7 +10,10 @@ export default [
     files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.jest
+      },
       parserOptions: {
         ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
@@ -34,5 +37,22 @@ export default [
         { allowConstantExport: true },
       ],
     },
+  },
+  // Specific configuration for test files
+  {
+    files: ['**/*.{test,spec}.{js,jsx}', '**/__tests__/**/*.{js,jsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+        ...globals.browser,
+      }
+    },
+    rules: {
+      // Disable some rules that are problematic for tests
+      'no-undef': 'off',
+      'react/jsx-no-undef': 'off',
+      'react/prop-types': 'off',
+      'import/no-extraneous-dependencies': 'off',
+    }
   },
 ]
