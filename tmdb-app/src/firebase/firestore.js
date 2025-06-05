@@ -33,46 +33,53 @@ export const addUser = async (userData) => {
 
 export const addMovieToUser = async (userData, movieId) => {
   try {
-    const userRef = doc(db, "User", userData.uid);
+    if (!movieId || typeof movieId !== "string") {
+      throw new Error("Invalid movie ID");
+    }
 
-    // Use arrayUnion to add the movieId if it doesn't already exist in the array
+    if (!userData?.uid) {
+      throw new Error("Invalid user data");
+    }
+
+    const userRef = doc(db, "User", userData.uid);
     await updateDoc(userRef, {
       movies: arrayUnion(movieId),
     });
-
-    console.log(`Movie ${movieId} added to user ${userData.uid} successfully!`);
   } catch (error) {
     console.error("Error adding movie to user:", error);
+    throw error;
   }
 };
 
 export const removeMovieFromUser = async (userData, movieId) => {
   try {
-    const userRef = doc(db, "User", userData.uid);
+    if (!movieId || typeof movieId !== "string") {
+      throw new Error("Invalid movie ID");
+    }
 
-    // Use arrayRemove to remove the movieId from the array
+    if (!userData?.uid) {
+      throw new Error("Invalid user data");
+    }
+
+    const userRef = doc(db, "User", userData.uid);
     await updateDoc(userRef, {
       movies: arrayRemove(movieId),
     });
-
-    console.log(
-      `Movie ${movieId} removed from user ${userData.uid} successfully!`
-    );
   } catch (error) {
     console.error("Error removing movie from user:", error);
+    throw error;
   }
 };
-
 
 export const getMoviesByUser = async (userData) => {
   try {
     const userRef = doc(db, "User", userData.uid);
-    
+
     const userDoc = await getDoc(userRef);
 
     if (userDoc.exists()) {
       const userData = userDoc.data();
-      
+
       if (userData.movies && Array.isArray(userData.movies)) {
         return userData.movies;
       } else {
