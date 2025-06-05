@@ -11,7 +11,7 @@ import {
     fetchMovieData,
 } from "../../tmdb/config";
 
-describe("Config", () => {
+describe("config", () => {
     beforeEach(() => {
         jest.resetModules();
         jest.clearAllMocks();
