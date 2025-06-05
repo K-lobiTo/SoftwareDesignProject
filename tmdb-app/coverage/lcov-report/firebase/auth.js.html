@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">76.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>16/21</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>4/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">76.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>16/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -125,40 +125,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,40 +175,40 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 &nbsp;
-export const doCreateUserWithEmailAndPassword = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (email, password) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  try {</span>
-  const userCredential = <span class="cstat-no" title="statement not covered" >await createUserWithEmailAndPassword(auth, email, password);</span>
+export const doCreateUserWithEmailAndPassword = async (email, password) =&gt; {
+  try {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 <span class="cstat-no" title="statement not covered" >  addUser(userCredential.user);</span>
 <span class="cstat-no" title="statement not covered" >  return userCredential;</span>
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    throw("Error signing in:", error.message);</span>
+    throw new Error("Error signing in: " + error.message);
   }
 };
 &nbsp;
-export const doSignInWithEmailAndPassword = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>mail, password) =&gt; {</span>
+export const doSignInWithEmailAndPassword = <span class="fstat-no" title="function not covered" >(e</span>mail, password) =&gt; {
 <span class="cstat-no" title="statement not covered" >  return signInWithEmailAndPassword(auth, email, password);</span>
 };
 &nbsp;
-export const doSignInWithGoogle = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-  const provider = <span class="cstat-no" title="statement not covered" >new GoogleAuthProvider();</span>
-  const result = <span class="cstat-no" title="statement not covered" >await signInWithPopup(auth, provider);</span>
-  const user = <span class="cstat-no" title="statement not covered" >result.user;</span>
-<span class="cstat-no" title="statement not covered" >  addUser(user);</span>
+export const doSignInWithGoogle = async () =&gt; {
+  const provider = new GoogleAuthProvider();
+  const result = await signInWithPopup(auth, provider);
+  const user = result.user;
+  addUser(user);
 };
 &nbsp;
-export const doSignOut = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return auth.signOut();</span>
+export const doSignOut = () =&gt; {
+  return auth.signOut();
 };
 &nbsp;
-export const doPasswordReset = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>mail) =&gt; {</span>
+export const doPasswordReset = <span class="fstat-no" title="function not covered" >(e</span>mail) =&gt; {
 <span class="cstat-no" title="statement not covered" >  return sendPasswordResetEmail(auth, email);</span>
 };
 &nbsp;
-export const doPasswordChange = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>assword) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return updatePassword(auth.currentUser, password);</span>
+export const doPasswordChange = (password) =&gt; {
+  return updatePassword(auth.currentUser, password);
 };
 &nbsp;
-export const doSendEmailVerification = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+export const doSendEmailVerification = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >  return sendEmailVerification(auth.currentUser, {</span>
     url: `${window.location.origin}/home`,
   });
@@ -220,7 +220,7 @@ export const doSendEmailVerification = <span class="cstat-no" title="statement n
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-06-05T03:53:51.806Z
+                at 2025-06-05T04:30:31.904Z
             </div>
         <script src="../prettify.js"></script>
         <script>

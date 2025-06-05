@@ -16,7 +16,7 @@ export const doCreateUserWithEmailAndPassword = async (email, password) => {
   addUser(userCredential.user);
   return userCredential;
   } catch (error) {
-    throw("Error signing in:", error.message);
+    throw new Error("Error signing in: " + error.message);
   }
 };
 
