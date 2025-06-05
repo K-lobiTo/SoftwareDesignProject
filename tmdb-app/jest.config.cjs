@@ -21,17 +21,13 @@ module.exports = {
 
     collectCoverage: true,
     collectCoverageFrom: [
-        "src/**/*.{js,jsx}",
-        "!src/**/*.d.ts",
-        "!src/main.jsx",
-        "!src/vite-env.d.ts",
-        "!**/node_modules/**",
+        "src/firebase/**/*.{js,jsx}",
+        "src/tmdb/**/*.{js,jsx}",
     ],
     coverageDirectory: "coverage",
     coverageReporters: ["text", "lcov", "clover"],
     coverageThreshold: {
         global: {
-            // TODO: Implement coverage threshold
             statements: 0,
             branches: 0,
             functions: 0,
