@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
@@ -21,6 +21,7 @@ import { useTheme } from "../../../contexts/themeProvider";
 
 const Login = () => {
   const { userLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,7 +66,7 @@ const Login = () => {
         width: "100%",
       }}
     >
-      {userLoggedIn && <Navigate to={"/catalog"} replace={true} />}
+      {userLoggedIn && navigate("/catalog")}
       <Container maxWidth="lg">
         <Paper
           elevation={10}
