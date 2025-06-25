@@ -5,7 +5,7 @@ import { useRoutes } from "react-router-dom";
 import Header from "./components/header";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
-import Catalog from "./components/catalog/catalog";
+import Catalog from "./components/catalog/Catalog";
 import Details from "./components/details/Details";
 import Watchlist from "./components/watchlist/Watchlist";
 
