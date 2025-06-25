@@ -32,7 +32,7 @@ const Header = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
 
-  // Lenguage
+  // Language
   const { language, toggleLanguage, languageName } = useLanguage();
   const [loggedPages, setLoggedPages] = useState([
     language.header.catalogPage,
@@ -89,25 +89,29 @@ const Header = () => {
   const toPage = (page) => {
     reset();
 
-    if (languageName !== "en-US") {
-      if (page === language.header.login) {
-        toLogin();
-      } else if (page === language.header.register) {
-        toRegister();
-      } else if (page === language.header.watchlistPage) {
-        navigate("/watchlist");
-      } else if (page === language.header.catalogPage) {
-        navigate("/catalog");
-      }
-    } else {
-      navigate(`/${page}`);
+    // console.log(languageName);
+    // console.log(page);
+    if (page === language.header.login) {
+      toLogin();
+    } else if (page === language.header.register) {
+      toRegister();
+    } else if (page === language.header.watchlistPage) {
+      navigate("/watchlist");
+    } else if (page === language.header.catalogPage) {
+      navigate("/catalog");
     }
   };
 
-  // useEffect = (() => {setLoggedPages([
-  //   language.header.login,
-  //   language.header.register,
-  // ])}, []);
+  useEffect(() => {
+  setLoggedPages([
+    language.header.catalogPage,
+    language.header.watchlistPage,
+  ]);
+  setUnLoggedPages([
+    language.header.login,
+    language.header.register,
+  ]);
+}, [language, languageName]);
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "white" }}>
