@@ -21,7 +21,7 @@ https://api.themoviedb.org/3/genre/movie/list
 ```
 
 ## Link a la App
-### [Ingresar a la página web](https://mellifluous-zuccutto-ca8d61.netlify.app/)
+### [Ingresar a la página web](https://venerable-seahorse-c5238b.netlify.app/)
 
  
 
